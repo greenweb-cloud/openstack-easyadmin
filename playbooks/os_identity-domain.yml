@@ -1,0 +1,6 @@
+---
+- hosts: localhost #utility_container
+  remote_user: root
+  become: true
+  roles:
+    - os_identity-domain

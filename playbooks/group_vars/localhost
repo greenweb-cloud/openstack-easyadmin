@@ -1,0 +1,3 @@
+# variables related globally to the utility_container host group
+
+CLOUD_NAME: default

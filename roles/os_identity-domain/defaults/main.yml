@@ -1,0 +1,4 @@
+---
+# defaults file for os_identity-domain
+
+domain_name: "demo"

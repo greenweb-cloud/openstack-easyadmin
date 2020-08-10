@@ -1,0 +1,18 @@
+---
+# tasks file for os_identity-domain
+
+# Create a domain
+- os_keystone_domain:
+     cloud: "{{CLOUD_NAME}}"
+     state: present
+     name: "{{ domain_name }}"  
+     description: create domain "{{ domain_name }}"
+
+# Delete a domain
+- os_keystone_domain:
+     cloud: "{{CLOUD_NAME}}"
+     state: absent
+     name: "{{ domain_name }}"
+     description: delete domain "{{ domain_name }}"
+  tags: [ never, del-domain ]
+

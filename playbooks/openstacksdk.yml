@@ -1,0 +1,6 @@
+---
+
+- name: Install openstacksdk
+  hosts: localhost
+  roles:
+    - ansible-role-openstacksdk
