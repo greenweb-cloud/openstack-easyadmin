@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  gather_facts: yes
+  vars:
+    domain_name: 'default'
+    project_name: 'admin'
+    user_name: 'iman'
+    user_role: 'admin'
+    
+  roles:
+    # add/update 'demo' domain
+    - { role: os_identity-domain }  
+
+    # add/update 'demo' project
+    - { role: os_identity-project }
+
+    # add/update 'demo' user
+    - { role: os_identity-user } 
+    
+    # To delete user 'demo':
+    #    add option --tags=del-user like this:
+    #    ansible-playbook os_identity-domain.yml --tags=del-user
+

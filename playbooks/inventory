@@ -1,0 +1,24 @@
+[localhost]
+localhost ansible_connection=local 
+
+[utility_container]
+infra1-utility 
+
+[new]
+compute1
+
+[compute]
+compute1
+# compute2
+compute3
+compute4
+compute5
+compute12
+compute13
+
+
+[infra]
+infra1
+infra2
+infra3
+log1

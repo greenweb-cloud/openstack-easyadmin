@@ -1,0 +1,12 @@
+---
+# tasks file for os_qouta-project
+
+# List a Project Quota
+- name: List Quota Project
+  os_quota:
+    cloud: "{{CLOUD_NAME}}"
+    name: "{{ project_name }}"
+  register: quota_var   
+#quota_var is varible 
+- debug: 
+    var: quota_var

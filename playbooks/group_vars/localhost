@@ -1,0 +1,4 @@
+# variables related globally to the utility_container host group
+
+#ansible_python_interpreter: /usr/bin/python3
+CLOUD_NAME: default

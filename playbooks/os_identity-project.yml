@@ -1,0 +1,12 @@
+---
+- hosts: localhost #utility_container
+  gather_facts: yes
+
+  roles:
+    # add or update 'demo' project
+    - { role: os_identity-project, project_name: "company1" }  
+
+    # delete 'demo' domain
+    # add option --tags=del-project like this:
+    # ansible-playbook os_identity-project.yml --tags=del-project
+    

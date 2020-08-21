@@ -1,0 +1,6 @@
+---
+# defaults file for os_identity-domain
+
+domain_name: "demo"
+
+domain_create_desc: "Created by Ansible role:{{ ansible_play_role_names }}, Date created: {{ ansible_date_time.date }}"

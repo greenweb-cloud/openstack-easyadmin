@@ -1,0 +1,9 @@
+---
+- hosts: infra
+
+  tasks:
+    - name: running pre-deploy role 
+      import_role:
+        name: pre-deploy
+  
+ 

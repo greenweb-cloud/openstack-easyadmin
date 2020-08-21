@@ -1,0 +1,10 @@
+---
+# defaults file for os_identity-user
+
+user_role: _member_
+user_name: demo
+user_password: password
+project_name: demo
+domain_name: default
+
+password_lenght: 8
