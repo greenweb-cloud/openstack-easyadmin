@@ -6,7 +6,7 @@
     cloud: "{{CLOUD_NAME}}"
     endpoint_type: admin
     state: present
-    name: "{{ project_name }}"
+    name: "{{ project_name }}
     description: "{{ project_desc }}" 
     domain_id: "{{ domain_ID }}"
     enabled: True

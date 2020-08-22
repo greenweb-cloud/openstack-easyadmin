@@ -1,2 +1,10 @@
 ---
+<<<<<<< HEAD
 # defaults file for os_identity-domain
+=======
+# defaults file for os_identity-domain
+
+domain_name: "demo"
+
+domain_create_desc: "Created by Ansible role:{{ ansible_play_role_names }}, Date created: {{ ansible_date_time.date }}"
+>>>>>>> 32b41009647b1de2cdf2ee5dffd98e2aa9bf944a

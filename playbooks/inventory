@@ -1,8 +1,9 @@
 [localhost]
-localhost ansible_connection=local
+
+localhost ansible_connection=local 
 
 [utility_container]
-infra1-utility
+infra1-utility 
 
 [new]
 compute1

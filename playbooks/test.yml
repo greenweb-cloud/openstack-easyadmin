@@ -1,0 +1,20 @@
+---
+#- hosts: localhost
+ 
+- name: test withItams
+  hosts: localhost
+  debug:
+    msg: "{{ item }}"
+  with_items: [a,b,c]
+
+- name: test withItams
+  hosts: localhost
+  debug:
+    msg: "{{ item.name }}"
+  with_items:
+    - a:
+      name: ali
+- name: role
+  hosts: localhost
+  import_role:
+    - test_role

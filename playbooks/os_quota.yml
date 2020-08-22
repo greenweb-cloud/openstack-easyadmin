@@ -1,0 +1,6 @@
+---
+- hosts: localhost #utility_container
+#  gather_facts: yes
+
+  roles:
+    - os_quota-project  
