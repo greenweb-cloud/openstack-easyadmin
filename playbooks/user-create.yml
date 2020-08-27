@@ -1,0 +1,7 @@
+---
+- hosts: util_container
+  remote_user: root
+  become: true
+  roles:
+    - user-create
+
