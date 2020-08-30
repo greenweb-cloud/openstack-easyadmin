@@ -1,22 +1,27 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Create and Delete projects for openstack
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible 2.8 or higher
+python version 3.8 or higher
+python3-openstacksdk 0.46 or higher 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Currently the following variables are supported:
+
+* `project_name` - Default: demo. project name to create.
+* `domain_ID` - Default: "default". domain id name witch project will be created for.
+* `project_desc` -Default: "Created by Ansible role:{{ ansible_play_role_names }}, Date created: {{ ansible_date_time.date }}". project description
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
@@ -25,14 +30,19 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+        # add or update 'demo' project           
+        - { role: os_identity-project, project_name: "company1" }
+    
+    # delete 'demo' domain                              
+    # add option --tags=del-project like this:   
+    # ansible-playbook os_identity-project.yml --tags=del-project 
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Iman Darabi <iman.darabi@gmail.com>
