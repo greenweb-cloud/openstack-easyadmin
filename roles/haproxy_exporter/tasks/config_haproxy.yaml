@@ -1,0 +1,7 @@
+---
+- name:
+  lineinfile:
+    path: "{{ config_path }}"
+    line: "{{ config }}"
+    insertbefore: "line 3"
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
