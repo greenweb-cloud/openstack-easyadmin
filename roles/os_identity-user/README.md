@@ -1,22 +1,31 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Create and Delete projects for openstack
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible 2.8 or higher
+python version 3.8 or higher
+python3-openstacksdk 0.46 or higher 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Currently the following variables are supported:
+
+* `user_role` - Default: _member_. role of user, you can use from ['_member_', 'admin']
+* `user_name` - Default: demo. user name to be created.
+* `user_password` - Default: password. password of new created user which will be shown at plays
+* `project_name` - Default: demo. user will be assigned as member of {{ project_name }} variable
+* `domain_name` - Default: default. user will be assigned as member  of {{ domain_name }} variable
+* `password_lenght` - Default: 8. password length.
+
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+you should specifiy `domain_name` and `project_name`. but you can use `os_identity-domain` and `os_identity-project` roles within this collection to create project and domain names as well. 
 
 Example Playbook
 ----------------
@@ -25,14 +34,41 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+       # add/update 'demo' user
+       - { role: os_identity-user } 
+    
+       # To delete user 'demo':
+       #    add option --tags=del-user like this:
+       #    ansible-playbook os_identity-domain.yml --tags=del-user
+
+
+the following sample will create domain, project and assing newly create domain and project to user:
+
+     ---
+     - hosts: localhost
+       gather_facts: yes
+       vars:
+         domain_name: 'default'
+         project_name: 'admin'
+         user_name: 'iman'
+         user_role: 'admin'
+    
+       roles:
+         # add/update 'demo' domain
+         - { role: os_identity-domain }  
+
+         # add/update 'demo' project
+         - { role: os_identity-project }
+
+         # add/update 'demo' user
+         - { role: os_identity-user } 
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Iman Darabi <iman.darabi@gmail.com>
