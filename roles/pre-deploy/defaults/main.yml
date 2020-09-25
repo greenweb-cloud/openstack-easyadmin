@@ -1,13 +1,13 @@
 ---
 # defaults file for pre-deploy
 
-disk_cinder_volumes: "/dev/md0"
+#disk_cinder_volumes: "/dev/md0"
 
-proxy_url: "http://172.16.104.8:3128/"
+proxy_url: "<proxy_url>"
 
 pkgs_remove: ['netplan.io', 'resolvconf', 'cloud-init', 'keepalived', 'haproxy']
 pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs25-nox', 'tcpdump', 'vlan', 'python', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop']
 
-preferred_dns: "172.16.104.1"
+preferred_dns: "<preferred_dns>"
 fallback_dns: "8.8.8.8"
 search_domains: ["iranserver"]
