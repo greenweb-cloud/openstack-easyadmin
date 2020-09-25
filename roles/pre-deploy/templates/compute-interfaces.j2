@@ -34,8 +34,8 @@ iface bond1 inet manual
 # ------------------------------------
 # Container/Host MANAGEMENT vlan interface
 # MGMT VLAN: NATIVE 4
-# subnet: 172.16.104.0/22
-# gateway: 172.16.107.254
+# subnet: <subnet_mgmt>
+# gateway: <gateway_mgmt>
 
 # STORAGE network vlan interface
 auto bond0.5
@@ -60,9 +60,9 @@ iface br-mgmt inet static
     bridge_waitport 0
     bridge_fd 0
     bridge_ports bond0
-    address 172.16.104.{{ ip }}
-    netmask 255.255.252.0
-    gateway 172.16.107.254
+    address <mgmt_subnet>.{{ ip }}
+    netmask <netmask_mgmt>
+    gateway <gateway_mgmt>
 
 # Storage bridge
 auto br-storage
@@ -71,8 +71,8 @@ iface br-storage inet static
     bridge_waitport 0
     bridge_fd 0
     bridge_ports bond0.5
-    address 172.16.109.{{ ip }}
-    netmask 255.255.255.0
+    address <storage_subnet>.{{ ip }}
+    netmask <netmask_subnet>
 
 # OpenStack Networking VLAN bridge
 auto br-vlan
@@ -96,6 +96,6 @@ iface br-vxlan inet static
     bridge_waitport 0
     bridge_fd 0
     bridge_ports bond1.6
-    address 172.16.110.{{ ip }}
-    netmask 255.255.255.0
+    address <vxlan_subnet>.{{ ip }}
+    netmask <netmask_vxlan>
 
