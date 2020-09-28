@@ -1,0 +1,9 @@
+---
+- name: install journal beat on host
+  hosts: test
+  become: true
+  roles:
+    - journalbeat
+   
+    
+       
