@@ -1,0 +1,37 @@
+---
+- name: gather variable container lxc galera cluster
+  shell: lxc-ls -f |grep galera |cut -d " " -f 1 
+  register: lxc_info
+  tags:
+     - galera_destroy 
+
+
+- name: gather variable controller name1
+  shell: lxc-ls -f |grep galera |cut -d " " -f 1 |cut -b 1-6
+  register: controller_name
+  tags:
+    - galera_destroy
+
+- name: debuging
+  debug:
+    msg: lxc-stop -n "{{ lxc_info.stdout }}"
+  tags:
+    galera_destroy
+
+- name: lxc stop
+  shell: "lxc-stop -n {{ lxc_info.stdout }}"
+  tags:
+     - galera_destroy
+
+      
+- name: lxc destroy
+  shell: "lxc-destroy -n {{ lxc_info.stdout }}"
+  tags:
+     - galera_destroy
+
+
+- name: remove file lxc container galera cluster
+  shell:  " rm -rf /openstack/{{ lxc_info.stdout }}/*"
+  tags:
+    - galera_destroy
+

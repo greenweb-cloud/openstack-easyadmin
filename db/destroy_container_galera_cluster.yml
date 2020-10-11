@@ -1,0 +1,7 @@
+---
+- hosts: destroy
+
+  tasks:
+    - name: Destroy container galera
+      import_role:
+        name: destroy_container_galera
