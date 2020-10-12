@@ -13,52 +13,52 @@ A weekly full backup combined with daily incremental backup is normally enough. 
 
 
 ## backup openstack databse
-ansible-playbook -i inventory backup backup_restor.yml
+ansible-playbook -i inventory --tags backup backup_restor.yml
 
-ansible-playbook -i inventory backup_one_by_one  backup_restor.yml
+ansible-playbook -i inventory --tags backup_one_by_one  backup_restor.yml
 
-ansible-playbook -i inventory nova_backup  backup_restor.yml
+ansible-playbook -i inventory --tags nova_backup  backup_restor.yml
 
-ansible-playbook -i inventory cinder_backup  backup_restor.yml
+ansible-playbook -i inventory --tags cinder_backup  backup_restor.yml
 
-ansible-playbook -i inventory keystone_backup  backup_restor.yml
+ansible-playbook -i inventory --tags keystone_backup  backup_restor.yml
 
-ansible-playbook -i inventory neutron_backup  backup_restor.yml
+ansible-playbook -i inventory --tags neutron_backup  backup_restor.yml
 
-ansible-playbook -i inventory placement_backup  backup_restor.yml
+ansible-playbook -i inventory --tags placement_backup  backup_restor.yml
 
-ansible-playbook -i inventory rally_backup  backup_restor.yml
+ansible-playbook -i inventory --tags rally_backup  backup_restor.yml
 
 
 ## restart mariadb
-ansible-playbook -i inventory mysql_restart  backup_restor.yml
+ansible-playbook -i inventory --tags mysql_restart  backup_restor.yml
 
 ## Restore openstack database
  
-ansible-playbook -i inventory restore backup_restor.yml
+ansible-playbook -i inventory --tags restore backup_restor.yml
 
-ansible-playbook -i inventory resotor_one_by_one  backup_restor.yml
+ansible-playbook -i inventory --tags resotor_one_by_one  backup_restor.yml
 
-ansible-playbook -i inventory nova_restore  backup_restor.yml
+ansible-playbook -i inventory --tags nova_restore  backup_restor.yml
 
-ansible-playbook -i inventory cinder_restore  backup_restor.yml
+ansible-playbook -i inventory --tags cinder_restore  backup_restor.yml
 
-ansible-playbook -i inventory keystone_restore  backup_restor.yml
+ansible-playbook -i inventory --tags keystone_restore  backup_restor.yml
 
-ansible-playbook -i inventory neutron_restore  backup_restor.yml
+ansible-playbook -i inventory --tags neutron_restore  backup_restor.yml
 
-ansible-playbook -i inventory placement_restore  backup_restor.yml
+ansible-playbook -i inventory --tags placement_restore  backup_restor.yml
 
-ansible-playbook -i inventory rally_restore  backup_restor.yml
+ansible-playbook -i inventory --tags rally_restore  backup_restor.yml
 
 
 
 
 
 ## destroy lxc container in galera cluster
-ansible-playbook -i inventory galera_destroy  destroy_container_galera_cluster.yml
+ansible-playbook -i inventory --tags galera_destroy  destroy_container_galera_cluster.yml
 
 ## reconviguration galera cluster in openstack (lxc)
-ansible-playbook -i inventory galera_infra  reconfigure_galera_cluster.yml
+ansible-playbook -i inventory --tags galera_infra  reconfigure_galera_cluster.yml
 
 
