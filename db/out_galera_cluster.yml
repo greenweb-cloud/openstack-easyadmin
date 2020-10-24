@@ -1,0 +1,6 @@
+---
+- hosts: BR
+  tasks:
+    - name: deploye out cluster
+      import_role:
+        name: out_cluster

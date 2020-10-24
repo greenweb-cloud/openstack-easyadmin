@@ -1,0 +1,24 @@
+---
+
+#  - name: backup db
+    #become: true
+    #become_user: root
+    #     shell: mysqldump -u root --single-transaction --all-databases  > /home/all.sql
+    #  tags:
+    #   - backup
+
+ - name: backup galera cluster
+   mysql_db:
+     state: dump
+     name: all
+     target: "{{ path_backup }}all.sql"
+   tags:
+      - backup
+
+ - name: scp backup to server
+   shell: scp "{{ path_backup }}all.sql" "/home/"
+   tags:
+      - backup
+
+
+

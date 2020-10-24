@@ -1,6 +1,7 @@
 # openstack-easyadmin
 Ansible playbooks and roles to automate openstack administrative tasks 
 
+if run on deployment we don't need openstack-sdk and can run playbook with <b> openstack-ansilbe </b>
 # Instalation
 1. install python3-openstacksdk:
    $ sudo apt install python3-openstacksdk

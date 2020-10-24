@@ -1,4 +1,7 @@
 ---
+<<<<<<< HEAD
+# defaults file for os_identity-user
+=======
 # defaults file for os_identity-user
 
 user_role: _member_
@@ -8,3 +11,4 @@ project_name: demo
 domain_name: default
 
 password_lenght: 8
+>>>>>>> 32b41009647b1de2cdf2ee5dffd98e2aa9bf944a
