@@ -1,9 +1,8 @@
 ---
 # tasks file for test_role
-tasks:
-  - name: test withItams
-    debug:
-      msg: "{{ item.name }}"
-    with_items:
-      "{{ projects }}"
+
+- name: test network template
+  template:
+    src: compute-interfaces.j2
+    dest: /root/
 

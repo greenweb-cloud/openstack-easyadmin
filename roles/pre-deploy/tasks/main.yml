@@ -1,5 +1,23 @@
 ---
 # tasks file for pre-deploy
+- name: repo
+  template:
+    src: apt-list.j2
+    dest: /etc/apt/sources.list
+  tags:
+    - compute
+
+- name: apt update source list
+  shell: apt update
+  tags: compute
+
+
+- name: copy network to compute
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
 
 - name: add proxy {{ proxy_url }} to 90curtin-aptprox file
   template:
@@ -101,11 +119,35 @@
     - infra
     - compute
 
+- name: stop Iscsi service 
+  service:
+    name: iscsid
+    state: stopped
+  ignore_errors: yes
+  tags:
+    - compute
+
+- name: stop tgt service 
+  service:
+    name: tgt
+    state: stopped
+  ignore_errors: yes
+  tags:
+    - compute
+
 - name: Remove a volume group with name cinder-volumes
   lvg:
     vg: cinder-volumes
     state: absent
     force: yes
+  tags:
+    - compute
+
+- name: remove file system if exist
+  shell:
+   cmd: |
+     wipefs -a "{{ disk_cinder_volumes }}"
+     #  wipefs -a "{{ disk_cinder_volumes[1] }}"
   tags:
     - compute
 
@@ -121,3 +163,10 @@
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
+
+
+- name: apt update source list
+  shell: ( sleep 5 ; reboot ) & 
+  tags: 
+  - compute
+  - infra

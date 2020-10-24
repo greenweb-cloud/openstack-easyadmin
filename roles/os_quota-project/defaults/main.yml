@@ -1,9 +1,9 @@
 ---
 # defaults file for os_qouta-project
 domain_name: "default"
-#projects:
-#  name: "admin"
-
+projects:
+  name: "admin"
+  cores: 100
 project_name: admin
 
 #projects_name: ['demo1']

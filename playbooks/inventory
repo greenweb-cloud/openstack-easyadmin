@@ -4,12 +4,36 @@ localhost ansible_connection=local
 [utility_container]
 infra1-utility 
 
+
 [new]
-compute1
+#compute1
+#compute2
+#compute3
+compute4
+#compute5
+#compute6
+#compute7
+#compute8
+#compute10
+#compute11
+#compute12
+#compute13
+#compute14
+#compute15
+
+#compute3
+#compute8
+#compute9
+#compute10
+#compute11
+#compute12
+#compute13
+#compute14
+#compute15
 
 [compute]
 compute1
-# compute2
+compute2
 compute3
 compute4
 compute5
