@@ -9,8 +9,9 @@
 
 - name: apt update source list
   shell: apt update
-  tags: compute
-
+  tags:
+    - infra
+    - compute
 
 - name: copy network to compute
   template:
@@ -77,7 +78,7 @@
     - compute
 
 - name: Set timezone to Asia/Tehran
-  timezone:
+  community.general.timezone:
     name: Asia/Tehran
   tags:
     - infra

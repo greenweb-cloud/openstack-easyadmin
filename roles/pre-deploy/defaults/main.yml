@@ -7,13 +7,13 @@ domian_name: "domain"
 proxy_url: "http://ip:3128/"
 
 pkgs_remove: ['netplan.io', 'resolvconf', 'cloud-init', 'keepalived', 'haproxy']
-pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs25-nox', 'tcpdump', 'vlan', 'python3', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop', 'htop']
+pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs', 'tcpdump', 'vlan', 'python3', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop', 'htop']
 
 preferred_dns: "ip"
 fallback_dns: "8.8.8.8"
 search_domains: ["domain"]
 interfaces:
-  - esn160
+  - ens160
   - ens192
 
 
