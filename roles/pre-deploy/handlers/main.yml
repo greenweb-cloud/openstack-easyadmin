@@ -1,8 +1,6 @@
 ---
 # handlers file for pre-deploy
-- name: restart resolved                                
-  tags:                                                                                                
-  - service                                                                                                                          
-  service:                                                                                        
+- name: restart resolved                                                                                                                                                        
+  ansible.builtin.service:                                                                                        
     name: systemd-resolved                                                                                
     state: restarted                                                                                   
