@@ -4,3 +4,8 @@
   ansible.builtin.service:                                                                                        
     name: systemd-resolved                                                                                
     state: restarted                                                                                   
+
+- name: restart chronyd                                                                                                                                                        
+  ansible.builtin.service:                                                                                        
+    name: chrony                                                                                
+    state: restarted                                                                                   
