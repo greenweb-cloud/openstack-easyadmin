@@ -12,14 +12,7 @@
   tags:
     - infra
     - compute
-
-- name: copy network to compute
-  template:
-    src: compute-interfaces.j2
-    dest: /etc/network/interfaces
-  tags:
-    - compute
-
+    
 - name: add proxy {{ proxy_url }} to 90curtin-aptprox file
   template:
     src: 90curtin-aptproxy.j2
@@ -29,7 +22,7 @@
     - compute
     - update-proxy
     
-- name: copy resolved.conf and restart resolved   
+- name: Configure /etc/systemd/resolved.conf 
   template:
     src: resolved.conf.j2             
     dest: /etc/systemd/resolved.conf                                                            
@@ -62,7 +55,7 @@
     - infra
     - compute
 
-- name: Update all packages to the latest version
+- name: Update distro to the latest version
   apt:
     upgrade: dist
   tags:
@@ -92,7 +85,7 @@
     - infra
     - compute
 
-- name: Copy modules file 
+- name: Configure /etc/modules file 
   copy:
     src: modules
     dest: /etc/modules
@@ -100,7 +93,7 @@
     - infra
     - compute
 
-- name: copy hosts file                                                              
+- name: Configure /etc/hosts file                                                              
   template:
     src: hosts.j2                    
     dest: /etc/hosts                                                            
@@ -108,7 +101,7 @@
     - infra
     - compute
 
-- name: Clean /openstack folder 
+- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory 
   file:
     path: "{{ item }}"
     state: absent
@@ -126,9 +119,23 @@
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
+    
+- name: Configure network for compute node
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
+    
+- name: Configure network for infra node
+  template:
+    src: infra1-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - infra
 
 
-- name: apt update source list
+- name: Reboot after 5 seconds
   shell: ( sleep 5 ; reboot ) & 
   tags: 
   - compute
