@@ -25,15 +25,9 @@
 - name: Configure /etc/systemd/resolved.conf 
   template:
     src: resolved.conf.j2             
-    dest: /etc/systemd/resolved.conf                                                            
-  tags:
-    - infra
-    - compute
-
-- name: restart systemd-resolved service
-  service:
-    name: systemd-resolved
-    state: restarted
+    dest: /etc/systemd/resolved.conf
+  notify:
+  - restart resolved
   tags:
     - infra
     - compute
@@ -73,14 +67,8 @@
 - name: Set timezone to Asia/Tehran
   community.general.timezone:
     name: Asia/Tehran
-  tags:
-    - infra
-    - compute
-
-- name: Restart service chrony, in all cases
-  service:
-    name: chrony
-    state: restarted
+  notify:
+  - restart chronyd
   tags:
     - infra
     - compute
