@@ -9,3 +9,9 @@ if run on deployment we don't need openstack-sdk and can run playbook with <b> o
 as openstacksdk package is installed for python version3 and above, so you should run playbooks with python3 interpreter and set it explicitly when running ansible-playbook command. so add "ansible_python_interpreter=/usr/bin/python3" to group_vars file, or run ansible playbooks like this:
 
    $ ansible-playbook <playbook.yml>  -e "ansible_python_interpreter=/usr/bin/python3"
+   
+   
+First Run this command
+
+ansible-galaxy install -r requirements.yml 
+

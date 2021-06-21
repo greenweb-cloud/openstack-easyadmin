@@ -9,16 +9,10 @@
 
 - name: apt update source list
   shell: apt update
-  tags: compute
-
-
-- name: copy network to compute
-  template:
-    src: compute-interfaces.j2
-    dest: /etc/network/interfaces
   tags:
+    - infra
     - compute
-
+    
 - name: add proxy {{ proxy_url }} to 90curtin-aptprox file
   template:
     src: 90curtin-aptproxy.j2
@@ -28,18 +22,12 @@
     - compute
     - update-proxy
     
-- name: copy resolved.conf and restart resolved   
+- name: Configure /etc/systemd/resolved.conf 
   template:
     src: resolved.conf.j2             
-    dest: /etc/systemd/resolved.conf                                                            
-  tags:
-    - infra
-    - compute
-
-- name: restart systemd-resolved service
-  service:
-    name: systemd-resolved
-    state: restarted
+    dest: /etc/systemd/resolved.conf
+  notify:
+  - restart resolved
   tags:
     - infra
     - compute
@@ -61,7 +49,7 @@
     - infra
     - compute
 
-- name: Update all packages to the latest version
+- name: Update distro to the latest version
   apt:
     upgrade: dist
   tags:
@@ -77,21 +65,15 @@
     - compute
 
 - name: Set timezone to Asia/Tehran
-  timezone:
+  community.general.timezone:
     name: Asia/Tehran
+  notify:
+  - restart chronyd
   tags:
     - infra
     - compute
 
-- name: Restart service chrony, in all cases
-  service:
-    name: chrony
-    state: restarted
-  tags:
-    - infra
-    - compute
-
-- name: Copy modules file 
+- name: Configure /etc/modules file 
   copy:
     src: modules
     dest: /etc/modules
@@ -99,7 +81,7 @@
     - infra
     - compute
 
-- name: copy hosts file                                                              
+- name: Configure /etc/hosts file                                                              
   template:
     src: hosts.j2                    
     dest: /etc/hosts                                                            
@@ -107,7 +89,7 @@
     - infra
     - compute
 
-- name: Clean /openstack folder 
+- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory 
   file:
     path: "{{ item }}"
     state: absent
@@ -119,53 +101,29 @@
     - infra
     - compute
 
-- name: stop Iscsi service 
-  service:
-    name: iscsid
-    state: stopped
-  ignore_errors: yes
-  tags:
-    - compute
-
-- name: stop tgt service 
-  service:
-    name: tgt
-    state: stopped
-  ignore_errors: yes
-  tags:
-    - compute
-
-- name: Remove a volume group with name cinder-volumes
-  lvg:
-    vg: cinder-volumes
-    state: absent
-    force: yes
-  tags:
-    - compute
-
-- name: remove file system if exist
-  shell:
-   cmd: |
-     wipefs -a "{{ disk_cinder_volumes }}"
-     #  wipefs -a "{{ disk_cinder_volumes[1] }}"
-  tags:
-    - compute
-
-- name: Create cinder-volumes volume group on top of {{ disk_cinder_volumes }}.
-  lvg:
-    vg: cinder-volumes
-    pvs: "{{ disk_cinder_volumes }}"
-  tags:
-    - compute
 
 - name: clean LXC containers
   shell:
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
+    
+- name: Configure network for compute node
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
+    
+- name: Configure network for infra node
+  template:
+    src: infra1-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - infra
 
 
-- name: apt update source list
+- name: Reboot after 5 seconds
   shell: ( sleep 5 ; reboot ) & 
   tags: 
   - compute

@@ -1,79 +1,33 @@
-# compute1 netowrk interface configuration
-{% set ip = ansible_default_ipv4.address.split('.')[-1] %}
+{% set ip = ansible_ens160.ipv4.address.split('.')[-1] %}
+
 
 auto lo
 iface lo inet loopback
 
 auto {{ interfaces[0] }}
 iface {{ interfaces[0] }} inet manual
-      bond-master bond0
+
 auto {{ interfaces[1] }}
 iface {{ interfaces[1] }} inet manual
-      bond-master bond0
-
-# MANAGEMENT NETWORK TRAFFIC
-auto bond0
-iface bond0 inet manual
-        slaves none
-        bond-mode 6
-
-auto {{ interfaces[2] }}
-iface {{ interfaces[2] }} inet manual
-      bond-master bond1
-auto {{ interfaces[3] }}
-iface {{ interfaces[3] }} inet manual
-      bond-master bond1
-
-# USER NETWORK TRAFFIC
-auto bond1
-iface bond1 inet manual
-        slaves none
-        bond-mode 6
 
 
-# ------------------------------------
-# Container/Host MANAGEMENT vlan interface
-# MGMT VLAN: NATIVE 4
-<<<<<<< HEAD
-# subnet: 172.16.104.0/22
-# gateway: 172.16.107.254
-=======
-# subnet: <subnet_mgmt>
-# gateway: <gateway_mgmt>
->>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
+auto {{ interfaces[0] }}.{{ storage_vlanID }}
+iface {{ interfaces[0] }}.{{ storage_vlanID }} inet manual
+        vlan-raw-device {{ interfaces[0] }}
 
-# STORAGE network vlan interface
-auto bond0.5
-iface bond0.5 inet manual
-    vlan-raw-device bond0
+auto {{ interfaces[1] }}.{{ vxlan_vlanID }}
+iface {{ interfaces[1] }}.{{ vxlan_vlanID }} inet manual
+        vlan-raw-device {{ interfaces[1] }}
 
-# ------------------------------------
-# VXLAN and VLAN user interface
 
-# OpenStack Networking VXLAN (tunnel/overlay) VLAN interface
-auto bond1.6
-iface bond1.6 inet manual
-    vlan-raw-device bond1
-
-# br-vlan: TRUNK mode
-# ------------------------------------
-
-# Container/Host management bridge
 auto br-mgmt
 iface br-mgmt inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports bond0
-<<<<<<< HEAD
-    address 172.16.104.{{ ip }}
-    netmask 255.255.252.0
-    gateway 172.16.107.254
-=======
-    address <mgmt_subnet>.{{ ip }}
-    netmask <netmask_mgmt>
-    gateway <gateway_mgmt>
->>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
+    bridge_ports {{ interfaces[0] }}
+    address {{ mgmt_NET }}.{{ ip }}/{{ mgmt_CIDR }}
+    gateway {{ mgmt_GW }}
 
 # Storage bridge
 auto br-storage
@@ -81,29 +35,9 @@ iface br-storage inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports bond0.5
-<<<<<<< HEAD
-    address 172.16.109.{{ ip }}
-    netmask 255.255.255.0
-=======
-    address <storage_subnet>.{{ ip }}
-    netmask <netmask_subnet>
->>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
+    bridge_ports {{ interfaces[0] }}.{{ storage_vlanID }}
+    address {{ storage_NET }}.{{ ip }}/{{ storage_CIDR }}
 
-# OpenStack Networking VLAN bridge
-auto br-vlan
-iface br-vlan inet manual
-    bridge_stp off
-    bridge_waitport 0
-    bridge_fd 0
-    # Create veth pair, do not abort if already exists
-    pre-up ip link add br-vlan-veth type veth peer name eth12 || true
-    # Set both ends UP
-    pre-up ip link set br-vlan-veth up
-    pre-up ip link set eth12 up
-    # Delete veth pair on DOWN
-    post-down ip link del br-vlan-veth || true
-    bridge_ports bond1  br-vlan-veth
 
 # OpenStack Networking VXLAN (tunnel/overlay) bridge
 auto br-vxlan
@@ -111,12 +45,19 @@ iface br-vxlan inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports bond1.6
-<<<<<<< HEAD
-    address 172.16.110.{{ ip }}
-    netmask 255.255.255.0
-=======
-    address <vxlan_subnet>.{{ ip }}
-    netmask <netmask_vxlan>
->>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
+    bridge_ports {{ interfaces[1] }}.{{ vxlan_vlanID }}
+    address {{ vxlan_NET }}.{{ ip }}/{{ vxlan_CIDR }}
 
+
+
+# OpenStack Networking VLAN bridge
+auto br-vlan
+iface br-vlan inet manual
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    pre-up ip link add br-vlan-veth type veth peer name eth12 || true
+    pre-up ip link set br-vlan-veth up
+    pre-up ip link set eth12 up
+    post-down ip link del br-vlan-veth || true
+    bridge_ports {{ interfaces[1] }} br-vlan-veth
