@@ -20,7 +20,8 @@ as openstacksdk package is installed for python version3 and above, so you shoul
 create hosts inventory files
 
 host sample-->
-`
+
+```
 [all]
 infra1
 infra2
@@ -37,7 +38,7 @@ compute2
 infra1
 infra2
 infra3
-`
+```
 
 # step 3
 
