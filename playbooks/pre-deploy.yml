@@ -1,5 +1,5 @@
 ---
-- hosts: new
+- hosts: "{{ machine }}"
   gather_facts: yes
   tasks:
     - name: network sorted
