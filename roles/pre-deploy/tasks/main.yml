@@ -123,8 +123,9 @@
     - infra
 
 
-- name: Reboot after 5 seconds
-  shell: ( sleep 5 ; reboot ) & 
+- name: Reboot a Linux machine 
+  reboot:
+    reboot_timeout: 1800
   tags: 
   - compute
   - infra
