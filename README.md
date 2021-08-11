@@ -11,7 +11,37 @@ as openstacksdk package is installed for python version3 and above, so you shoul
    $ ansible-playbook <playbook.yml>  -e "ansible_python_interpreter=/usr/bin/python3"
    
    
-First Run this command
+# step 1
 
-ansible-galaxy install -r requirements.yml 
+` ansible-galaxy collection install -r requirements.yml `
+
+# step 2
+
+create hosts inventory files
+
+host sample-->
+
+```
+[all]
+infra1
+infra2
+infra3
+compute1
+compute2
+
+
+[computes]
+compute1
+compute2
+
+[infras]
+infra1
+infra2
+infra3
+```
+
+# step 3
+
+` ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' pre-deploy.yml  `
+` ansible-playbook -i /path/to/hosts --tag compute -e 'machine=computes' pre-deploy.yml  `
 

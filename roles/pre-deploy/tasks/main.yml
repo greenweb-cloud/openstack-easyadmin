@@ -15,14 +15,14 @@
     - compute
     - apt
     
-      #- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
-      #  template:
-      #    src: 90curtin-aptproxy.j2
-      #    dest: /etc/apt/apt.conf.d/90curtin-aptproxy
-      #  tags:
-      #    - infra
-      #    - compute
-      #    - update-proxy
+      ##- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
+      ##template:
+      ## src: 90curtin-aptproxy.j2
+      ##dest: /etc/apt/apt.conf.d/90curtin-aptproxy
+      ##tags:
+      ##- infra
+      ##- compute
+      ##- update-proxy
     
 - name: Configure /etc/systemd/resolved.conf 
   template:

@@ -6,10 +6,10 @@ iface lo inet loopback
 
 auto {{ interfaces[0] }}
 iface {{ interfaces[0] }} inet manual
-
+	mtu 9000
 auto {{ interfaces[1] }}
 iface {{ interfaces[1] }} inet manual
-
+	mtu 9000
 
 auto {{ interfaces[0] }}.{{ storage_vlanID }}
 iface {{ interfaces[0] }}.{{ storage_vlanID }} inet manual
