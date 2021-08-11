@@ -6,21 +6,23 @@
     dest: /etc/apt/sources.list
   tags:
     - compute
+    - apt
 
 - name: apt update source list
   shell: apt update
   tags:
     - infra
     - compute
+    - apt
     
-- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
-  template:
-    src: 90curtin-aptproxy.j2
-    dest: /etc/apt/apt.conf.d/90curtin-aptproxy
-  tags:
-    - infra
-    - compute
-    - update-proxy
+      #- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
+      #  template:
+      #    src: 90curtin-aptproxy.j2
+      #    dest: /etc/apt/apt.conf.d/90curtin-aptproxy
+      #  tags:
+      #    - infra
+      #    - compute
+      #    - update-proxy
     
 - name: Configure /etc/systemd/resolved.conf 
   template:
@@ -31,6 +33,8 @@
   tags:
     - infra
     - compute
+    - resolved
+
 
 - name: Install packages "{{ pkgs_install }}"
   apt:
@@ -123,8 +127,13 @@
     - infra
 
 
-- name: Reboot after 5 seconds
-  shell: ( sleep 5 ; reboot ) & 
+- name: Reboot a Linux machine 
+  reboot:
+    reboot_timeout: 1800
   tags: 
-  - compute
-  - infra
+  - reboot
+    #- name: Reboot after 5 seconds
+    #  shell: ( sleep 5 ; reboot ) & 
+    #  tags: 
+    #  - compute
+    #  - infra
