@@ -26,9 +26,21 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: servers
       roles:
          - { role: username.rolename, x: 42 }
-# Run Plabook
+# Requirements
+The below requirements are needed on the host that executes this module.
+
+* openstacksdk
+
+* openstacksdk >= 0.12.0
+
+* python >= 3.6
+
 ```
 ansible-galaxy collection install openstack.cloud
+
+```
+# Run Plabook
+```
 ansible-playbook -i hosts --tags instance_lunch -e 'machine=local' playbooks/create_instance
 ```
 
