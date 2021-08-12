@@ -1,3 +1,5 @@
+[local]
+127.0.0.1
 [all]
 infra1
 infra2
@@ -16,3 +18,5 @@ compute4
 infra1
 infra2
 infra3
+
+
