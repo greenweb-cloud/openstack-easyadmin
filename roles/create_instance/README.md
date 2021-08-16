@@ -39,9 +39,32 @@ The below requirements are needed on the host that executes this module.
 ansible-galaxy collection install openstack.cloud
 
 ```
+# preconfig
+
+you need to add config this file and change parameters
+
+```
+ vim defaults/main.yml
+
+```
+```
+# defaults file for create_instance
+auth_url:  "https://cloud.iranserver.com:5000/v3"
+username: "rezabojnordi"
+password: "123456"
+project_name: "reza"
+image: "image id"
+##count: "1"
+key_name: "rb"
+flavor: "flavor id"
+net_id: "flavor id"
+net_name: ""
+
+```
+
 # Run Plabook
 ```
-ansible-playbook -i hosts --tags instance_lunch -e 'machine=local' playbooks/create_instance
+ansible-playbook -i hosts --tags instance_lunch -e 'machine=local' playbooks/create_instance.yml
 ```
 
 License
