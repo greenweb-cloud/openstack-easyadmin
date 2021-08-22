@@ -1,19 +1,8 @@
-# openstack-easyadmin
-Ansible playbooks and roles to automate openstack administrative tasks 
-
-if run on deployment we don't need openstack-sdk and can run playbook with <b> openstack-ansilbe </b>
-# Instalation
-1. install python3-openstacksdk:
-   $ sudo apt install python3-openstacksdk
-
-as openstacksdk package is installed for python version3 and above, so you should run playbooks with python3 interpreter and set it explicitly when running ansible-playbook command. so add "ansible_python_interpreter=/usr/bin/python3" to group_vars file, or run ansible playbooks like this:
-
-   $ ansible-playbook <playbook.yml>  -e "ansible_python_interpreter=/usr/bin/python3"
-   
+# RabbitMq Status and Restart
    
 # step 1
 
-` ansible-galaxy collection install -r requirements.yml `
+clone the repository
 
 # step 2
 
@@ -22,26 +11,23 @@ create hosts inventory files
 host sample-->
 
 ```
-[all]
-infra1
-infra2
-infra3
-compute1
-compute2
+[rabbit]
+infra1_rabbit
+infra2_rabbit
+infra3_rabbit
 
-
-[computes]
-compute1
-compute2
-
-[infras]
-infra1
-infra2
-infra3
 ```
 
 # step 3
 
-` ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' pre-deploy.yml  `
-` ansible-playbook -i /path/to/hosts --tag compute -e 'machine=computes' pre-deploy.yml  `
+For get Status of the RabbitMq run this command
+` ansible-playbook -i /path/to/hosts --tag status  role/rabbitMQ/test/pb.yml  `
+
+For Restart the RabbitMq run this command 
+` ansible-playbook -i /path/to/hosts --tag restart role/rabbitMQ/test/pb.yml  `
+
+this will first stop from 1 to 3 and start vise-versa 
+the reason of this task is not to loose cluster (the last node you stop will be the first node to start)
+
+more doc at https://docs.openstack.org/openstack-ansible/pike/admin/maintenance-tasks/rabbitmq-maintain.html
 
