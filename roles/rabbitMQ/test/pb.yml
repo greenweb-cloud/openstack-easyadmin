@@ -1,0 +1,5 @@
+---
+- hosts: rabbit
+  gather_facts: yes
+  roles:
+    - { role: '/etc/ansible/roles/rockandska.rabbitmq' }
