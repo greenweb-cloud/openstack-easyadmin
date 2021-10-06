@@ -3,4 +3,4 @@
   serial: 1
   gather_facts: yes
   roles:
-    - { role: '/etc/ansible/roles/rabbitMQ' }
+    - { role: '../../rabbitMQ' }
