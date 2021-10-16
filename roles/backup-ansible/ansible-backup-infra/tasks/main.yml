@@ -1,0 +1,11 @@
+---
+# tasks file for ansible-backup-infra
+- include: nfs.yml
+
+- shell: "lxc-ls -f | cut -f 1 -d ' ' | grep infra"
+  register: "r"
+
+- include: instance.yml
+  with_items: "{{r.stdout_lines}}"
+ 
+- include: ha-keep-net.yml

@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: root
+  serial: 1
+  roles:
+    - { role: '../../ansible-backup-infra' }

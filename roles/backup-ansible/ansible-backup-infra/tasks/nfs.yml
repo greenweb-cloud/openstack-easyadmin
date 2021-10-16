@@ -1,0 +1,31 @@
+- name: Create /Backup directory if it does not exist
+  file:
+    path: /Backup
+    state: directory
+    mode: '0755'
+
+- name: Install NFS mount utility
+  become: true
+  yum:
+    name: nfs-utils
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install NFS mount utility
+  become: true
+  apt:
+    pkg: nfs-common
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Mount NFS share
+  become: true
+  mount:
+    fstype: nfs
+    name: "{{ item.path }}"
+    opts: "vers={{ nfs_version }},{{ item.opts | default(nfs_mount_opts) }}"
+    src: "{{ item.location }}"
+    dump: "{{ item.dump | default(omit) }}"
+    passno: "{{ item.passno | default(omit) }}"
+    state: "{{ item.state | default( 'mounted' ) }}"
+  with_items: "{{ nfs_share_mounts }}"
