@@ -1,7 +1,7 @@
 ---
 # defaults file for mysql_backup
 project_name: "backup galera cluster"
-path_backup: "/home/"
+path_backup: "~/"
 backup_storage_path: "/home/mysql_backup/"
 name_backup_file_infra1: backup_galera_infra1
 name_backup_file_infra2: backup_galera_infra2
