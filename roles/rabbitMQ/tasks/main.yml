@@ -12,7 +12,7 @@
 - name: Stop RabbitMq on infra1-rabbit-mq
   shell: rabbitmqctl stop_app
   register: status_output1
-  when: "'infra1-rabbit' in ansible_hostname"
+  delegate_to: "infra1_rabbit"
   tags: [ 'restart' ]
 - name: show status_output1
   debug: 
@@ -22,7 +22,7 @@
 - name: Stop RabbitMq on infra2-rabbit-mq
   shell: rabbitmqctl stop_app
   register: status_output2
-  when: "'infra2-rabbit' in ansible_hostname"
+  delegate_to: "infra2_rabbit"
   tags: [ 'restart' ]
 - name: show status_output2
   debug: 
@@ -32,7 +32,7 @@
 - name: Stop RabbitMq on infra3-rabbit-mq
   shell: rabbitmqctl stop_app
   register: status_output3
-  when: "'infra3-rabbit' in ansible_hostname"
+  delegate_to: "infra3_rabbit"
   tags: [ 'restart' ]
 - name: show status_output3
   debug:
@@ -43,7 +43,7 @@
 - name: Start RabbitMq on infra3-rabbit-mq
   shell: rabbitmqctl start_app
   register: status_output3
-  when: "'infra3-rabbit' in ansible_hostname"
+  delegate_to: "infra3_rabbit"
   tags: [ 'restart' ]
 - name: show status_output3
   debug:
@@ -53,7 +53,7 @@
 - name: Start RabbitMq on infra2-rabbit-mq
   shell: rabbitmqctl start_app
   register: status_output2
-  when: "'infra2-rabbit' in ansible_hostname"
+  delegate_to: "infra2_rabbit"
   tags: [ 'restart' ]
 - name: show status_output2
   debug:
@@ -63,7 +63,7 @@
 - name: Start RabbitMq on infra1-rabbit-mq
   shell: rabbitmqctl start_app
   register: status_output1
-  when: "'infra1-rabbit' in ansible_hostname"
+  delegate_to: "infra1_rabbit"
   tags: [ 'restart' ]
 - name: show status_output1
   debug:

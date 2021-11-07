@@ -13,24 +13,29 @@ preferred_dns: "8.8.8.8"
 fallback_dns: "4.2.2.4"
 search_domains: ["domain"]
 interfaces:
-  - eno1
-  - eno2
+  - ens160
+  - ens192
 
 
 extlb_vlanID: "12"
 storage_vlanID: "4"
 vxlan_vlanID: "3"
+ceph_vlanID: "13"
 
-extlb_NET: "192.20.12"
+extlb_NET: "172.20.12"
 extlb_CIDR: "24"
-extlb_GW: "192.20.12.254"
+extlb_GW: "172.20.12.254"
 
-mgmt_NET: "192.20.8"
+mgmt_NET: "172.20.8"
 mgmt_CIDR: "22"
-mgmt_GW: "192.20.11.254"
+mgmt_GW: "172.20.11.254"
 
-storage_NET: "192.20.4"
+storage_NET: "172.20.4"
 storage_CIDR: "22"
 
-vxlan_NET: "192.20.3"
+vxlan_NET: "172.20.3"
 vxlan_CIDR: "24"
+
+
+ceph_NET: "172.20.13"
+ceph_CIDR : "24"

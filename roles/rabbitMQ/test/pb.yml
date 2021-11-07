@@ -1,5 +1,5 @@
 ---
-- hosts: rabbit
+- hosts: localhost
   serial: 1
   gather_facts: yes
   roles:

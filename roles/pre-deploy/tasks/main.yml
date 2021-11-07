@@ -7,6 +7,8 @@
   tags:
     - compute
     - apt
+    - mon
+    - osd
 
 - name: apt update source list
   shell: apt update
@@ -14,7 +16,8 @@
     - infra
     - compute
     - apt
-    
+    - mon    
+    - osd
       ##- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
       ##template:
       ## src: 90curtin-aptproxy.j2
@@ -34,7 +37,8 @@
     - infra
     - compute
     - resolved
-
+    - mon
+    - osd
 
 - name: Install packages "{{ pkgs_install }}"
   apt:
@@ -43,6 +47,8 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
 - name: remove packages "{{ pkgs_remove }}"
   apt:
@@ -52,6 +58,8 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
 - name: Update distro to the latest version
   apt:
@@ -59,7 +67,9 @@
   tags:
     - infra
     - compute
-
+    - mon
+    - osd
+ 
 - name: Upgrade all packages to the latest version
   apt:
     name: "*"
@@ -67,7 +77,9 @@
   tags:
     - infra
     - compute
-
+    - mon
+    - osd
+  
 - name: Set timezone to Asia/Tehran
   community.general.timezone:
     name: Asia/Tehran
@@ -76,6 +88,8 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
 - name: Configure /etc/modules file 
   copy:
@@ -84,6 +98,8 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
 - name: Configure /etc/hosts file                                                              
   template:
@@ -125,6 +141,26 @@
     dest: /etc/network/interfaces
   tags:
     - infra
+
+
+
+- name: Configure network for ceph monitor node
+  template:
+    src: monitor-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - mon
+
+
+
+- name: Configure network for ceph osd node
+  template:
+    src: ceph-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - osd
+
+
 
 
 - name: Reboot a Linux machine 

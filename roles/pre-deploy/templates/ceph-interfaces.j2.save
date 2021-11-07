@@ -1,0 +1,64 @@
+{% set ip = ansible_ens160.ipv4.address.split('.')[-1] %}
+
+
+auto lo
+iface lo inet loopback
+
+auto {{ interfaces[0] }}
+iface {{ interfaces[0] }} inet manual
+	mtu 9000
+
+auto {{ interfaces[1] }}
+iface {{ interfaces[1] }} inet manual
+	mtu 9000
+
+auto {{ interfaces[0] }}.{{ storage_vlanID }}
+iface {{ interfaces[0] }}.{{ storage_vlanID }} inet manual
+        vlan-raw-device {{ interfaces[0] }}
+
+auto {{ interfaces[1] }}.{{ ceph_vlanID }}
+iface {{ interfaces[1] }}.{{ ceph_vlanID }} inet manual
+        vlan-raw-device {{ interfaces[1] }}
+
+
+auto br-mgmt
+iface br-mgmt inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{ interfaces[0] }}
+    address {{ mgmt_NET }}.{{ ip }}/{{ mgmt_CIDR }}
+    gateway {{ mgmt_GW }}
+
+# Storage bridge
+auto br-storage
+iface br-storage inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{ interfaces[0] }}.{{ storage_vlanID }}
+    address {{ storage_NET }}.{{ ip }}/{{ storage_CIDR }}
+
+
+# OpenStack Networking VXLAN (tunnel/overlay) bridge
+auto br-vxlan
+iface br-vxlan inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{ interfaces[1] }}.{{ vxlan_vlanID }}
+    address {{ vxlan_NET }}.{{ ip }}/{{ vxlan_CIDR }}
+
+
+
+# OpenStack Networking VLAN bridge
+auto br-vlan
+iface br-vlan inet manual
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    pre-up ip link add br-vlan-veth type veth peer name eth12 || true
+    pre-up ip link set br-vlan-veth up
+    pre-up ip link set eth12 up
+    post-down ip link del br-vlan-veth || true
+    bridge_ports {{ interfaces[1] }} br-vlan-veth
