@@ -13,8 +13,8 @@ preferred_dns: "8.8.8.8"
 fallback_dns: "4.2.2.4"
 search_domains: ["domain"]
 interfaces:
-  - ens160
-  - ens192
+  - interface1
+  - interface2
 
 
 extlb_vlanID: "1"
