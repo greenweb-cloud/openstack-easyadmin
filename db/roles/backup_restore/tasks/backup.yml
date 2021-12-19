@@ -15,6 +15,12 @@
   shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@nfs:/storage/glance/backup_mysql_tbz/"
   tags:
     - backup
+    
+- name: scp backup to checkDB server
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@checkDB:/home/mua/db_file"
+  tags:
+    - backup
+    - checkDB
 
 - name: restart mariadb
   service: name=mysql enabled=yes state=restarted
