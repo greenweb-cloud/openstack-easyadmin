@@ -12,7 +12,7 @@
 
 
 - name: scp backup to nfs server
-  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@nfs:/storage/glance/backup_mysql_tbz/"
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@nfs:/storage/glance/backup_mysql/"
   tags:
     - backup
     
