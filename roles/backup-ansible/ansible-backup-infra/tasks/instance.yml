@@ -1,0 +1,43 @@
+- name: Disable server "{{ item }}" 
+  community.general.haproxy:
+    state: disabled
+    host: '{{ item }}'
+    socket: '/var/run/haproxy.stat'
+    wait: yes
+    wait_interval: 1
+    wait_retries: 60
+  when: item.find('galera') != -1
+  delegate_to: "{{ float_ip }}"
+
+- name: Disable server "{{ item }}"
+  community.general.haproxy:
+    state: disabled
+    host: '{{ item }}'
+    socket: '/var/run/haproxy.stat'
+    wait: yes
+    drain: yes
+    wait_interval: 1
+    wait_retries: 60
+  when: item.find('galera') == -1
+  delegate_to: "{{ float_ip }}"
+
+- name: stop server "{{ item }}"
+  command: lxc-stop -n '{{ item }}'
+
+
+- name: backup server "{{ item }}"
+  shell: |
+        tar --numeric-owner -czvf "/Backup/{{ item }}-$(date +%F).tgz" --exclude='/var/lib/lxc/*/rootfs/var/lib/glance/cache*'  "/var/lib/lxc/{{ item }}"
+
+- name: start server "{{ item }}"
+  command: lxc-start -n '{{ item }}'
+
+- name: Enable server "{{ item }}"
+  community.general.haproxy:
+    state: enabled 
+    host: '{{ item }}'
+    socket: '/var/run/haproxy.stat'
+    wait: yes
+    wait_interval: 1
+    wait_retries: 60
+  delegate_to: "{{ float_ip }}"

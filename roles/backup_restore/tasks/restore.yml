@@ -1,0 +1,31 @@
+- name: debug
+  debug:
+    msg: "{{ backup_storage_path }}all.sql"
+  tags:
+    - debug
+
+- name: copy backup file for restor
+  copy:  
+    src:  "{{ backup_storage_path }}all.sql"  
+    dest: "{{ path_backup }}all.sql" 
+    mode: '0655'
+  tags:
+    - restore
+
+
+- name: Restore All Database 
+  mysql_db:
+    state: import      
+    name: all 
+    target:  "{{ path_backup }}all.sql"
+  tags:
+     - restore
+
+
+#- name: Restore database
+#  tasks:
+#    - shell: mysql -u root  < "{{ path_backup }}all.sql"
+#  tags:
+#    - restore
+
+

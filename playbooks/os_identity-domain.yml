@@ -1,0 +1,12 @@
+---
+- hosts: localhost #utility_container
+  gather_facts: yes
+
+  roles:
+    # add or update 'demo' domain
+    - { role: os_identity-domain, domain_name: "demo" }  
+
+    # delete 'demo' domain
+    # add option --tags=del-domain like this:
+    # ansible-playbook os_identity-domain.yml --tags=del-domain
+    
