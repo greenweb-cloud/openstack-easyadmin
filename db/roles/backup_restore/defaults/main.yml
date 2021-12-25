@@ -23,11 +23,11 @@ setup_hosts: "openstack-ansible /opt/openstack-ansible/playbooks/setup-hosts.yml
 
 setup_infrastructure: "openstack-ansible /opt/openstack-ansible/playbooks/setup-infrastructure.yml"
 
-infra3_galera: "172.20.9.189"
+infra3_galera: "infra3-galera-container-7f8a2401"
 
 rsa_pub: "~/.ssh/id_rsa.pub"
 
 copy_to_nfs: "~/.ssh/authorized_keys"
 
-nfs_ip: "172.20.8.7"
+nfs_ip: "nfs"
 

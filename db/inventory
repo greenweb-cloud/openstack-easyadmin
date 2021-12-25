@@ -3,9 +3,14 @@
 
 [BR]
 #galera_container1
+<<<<<<< HEAD
 #galera_container2
 #galera3.iranserver.com
 infra3-galera-container-7f8a2401
+=======
+galera_container2
+#galera_container3
+>>>>>>> 96fc0e97430f870938b2e7281f2c55b648ca55b8
 
 [destroy]
 infra1

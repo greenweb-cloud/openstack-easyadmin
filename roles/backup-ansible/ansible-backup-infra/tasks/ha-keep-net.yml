@@ -7,6 +7,7 @@
     - /etc/haproxy
     - /etc/lxc
     - /etc/neutron
+    - /openstack
     dest: "/Backup/{{inventory_hostname}}.tgz"
     format: gz
 

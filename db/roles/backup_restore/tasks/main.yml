@@ -1,6 +1,6 @@
 ---
 # tasks file for mysql_backup
 - include: backup.yml
-  #- include: backup_one_by_one.yml
-  #- include: restore.yml
-  #- include: restore_one_by_one.yml
+- include: backup_one_by_one.yml
+- include: restore.yml
+- include: restore_one_by_one.yml

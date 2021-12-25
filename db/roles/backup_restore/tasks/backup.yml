@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # vim:ft=ansible:
 
 
@@ -48,6 +49,13 @@
 - name: backup galera cluster
   mysql_db:
     login_unix_socket: /var/run/mysqld/mysqld.sock
+=======
+---
+
+
+- name: backup galera cluster
+  mysql_db:
+>>>>>>> 96fc0e97430f870938b2e7281f2c55b648ca55b8
     state: dump
     name: all
     target: "{{ path_backup }}all_{{ ansible_date_time.date }}.sql"
@@ -55,10 +63,24 @@
     - backup
 
 
+<<<<<<< HEAD
 - name: scp backup to nfs server
   shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@172.20.4.7:/storage/glance/backup_mysql_beh/"
   tags:
     - backup
+=======
+
+- name: scp backup to nfs server
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@nfs:/storage/glance/backup_mysql/"
+  tags:
+    - backup
+    
+- name: scp backup to checkDB server
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@checkDB:/home/mua/db_file"
+  tags:
+    - backup
+    - checkDB
+>>>>>>> 96fc0e97430f870938b2e7281f2c55b648ca55b8
 
 - name: restart mariadb
   service: name=mysql enabled=yes state=restarted
