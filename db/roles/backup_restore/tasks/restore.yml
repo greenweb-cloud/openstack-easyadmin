@@ -1,13 +1,13 @@
 - name: debug
   debug:
-    msg: "{{ backup_storage_path }}all.sql"
+    msg: "{{ backup_storage_path }}all_{{ ansible_date_time.date }}.sql"
   tags:
     - debug
 
 - name: copy backup file for restor
   copy:  
-    src:  "{{ backup_storage_path }}all.sql"  
-    dest: "{{ path_backup }}all.sql" 
+    src:  "{{ backup_storage_path }}all_{{ ansible_date_time.date }}.sql"  
+    dest: "{{ path_backup }}all_{{ ansible_date_time.date }}.sql" 
     mode: '0655'
   tags:
     - restore
@@ -17,7 +17,7 @@
   mysql_db:
     state: import      
     name: all 
-    target:  "{{ path_backup }}all.sql"
+    target:  "{{ path_backup }}all_{{ ansible_date_time.date }}.sql"
   tags:
      - restore
 
