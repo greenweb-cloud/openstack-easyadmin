@@ -1,0 +1,123 @@
+---
+# tasks file for pre-deploy
+
+- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
+  template:
+    src: 90curtin-aptproxy.j2
+    dest: /etc/apt/apt.conf.d/90curtin-aptproxy
+  tags:
+    - infra
+    - compute
+    - update-proxy
+    
+- name: copy resolved.conf and restart resolved   
+  template:
+    src: resolved.conf.j2             
+    dest: /etc/systemd/resolved.conf                                                            
+  tags:
+    - infra
+    - compute
+
+- name: restart systemd-resolved service
+  service:
+    name: systemd-resolved
+    state: restarted
+  tags:
+    - infra
+    - compute
+
+- name: Install packages "{{ pkgs_install }}"
+  apt:
+    name: "{{ pkgs_install }}"
+    state: present
+  tags:
+    - infra
+    - compute
+
+- name: remove packages "{{ pkgs_remove }}"
+  apt:
+    name: "{{ pkgs_remove }}"
+    purge: yes
+    state: absent
+  tags:
+    - infra
+    - compute
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+  tags:
+    - infra
+    - compute
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+  tags:
+    - infra
+    - compute
+
+- name: Set timezone to Asia/Tehran
+  timezone:
+    name: Asia/Tehran
+  tags:
+    - infra
+    - compute
+
+- name: Restart service chrony, in all cases
+  service:
+    name: chrony
+    state: restarted
+  tags:
+    - infra
+    - compute
+
+- name: Copy modules file 
+  copy:
+    src: modules
+    dest: /etc/modules
+  tags:
+    - infra
+    - compute
+
+- name: copy hosts file                                                              
+  template:
+    src: hosts.j2                    
+    dest: /etc/hosts                                                            
+  tags:
+    - infra
+    - compute
+
+- name: Clean /openstack folder 
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:  
+    - "/openstack/"
+    - "/etc/haproxy"
+    - "/etc/keepalived/"
+  tags: 
+    - infra
+    - compute
+
+- name: Remove a volume group with name cinder-volumes
+  lvg:
+    vg: cinder-volumes
+    state: absent
+    force: yes
+  tags:
+    - compute
+
+- name: Create cinder-volumes volume group on top of {{ disk_cinder_volumes }}.
+  lvg:
+    vg: cinder-volumes
+    pvs: "{{ disk_cinder_volumes }}"
+  tags:
+    - compute
+
+- name: clean LXC containers
+  shell:
+    cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
+  tags:
+    - infra
