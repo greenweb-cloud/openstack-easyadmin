@@ -1,20 +1,57 @@
----
+# vim:ft=ansible:
 
-#  - name: backup db
-    #become: true
-    #become_user: root
-    #     shell: mysqldump -u root --single-transaction --all-databases  > /home/all.sql
-    #  tags:
-    #   - backup
+---
+- name: check public_key
+  stat:
+    path: "{{ rsa_pub }}"
+  register: available_key
+  tags:
+    - backup
+
+- name: Task name
+  debug:
+    msg: "The file or directory exists"
+  when: available_key.stat.exists
+- name: create public_key
+  shell: >
+        ssh-keygen -q -b 2048 -t rsa -N "" -C "creating SSH" -f ~/.ssh/id_rsa
+        creates="~/.ssh/id_rsa"
+  when: available_key.stat.exists
+  tags:
+    - backup
+
+- name: check key in nfs for galeracluster
+  shell: "cat {{ rsa_pub }}"
+  delegate_to: "{{ infra3_galera }}"
+  register: out
+  tags:
+    - backup
+
+- name: variable
+  debug:
+    var: out.stdout
+  tags:
+    - backup
+- name: add key in nfs server
+  delegate_to: "{{ nfs_ip }}"
+  lineinfile: 
+    dest: "{{ copy_to_nfs }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop  :
+    - regexp: "^ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDgvW6e5I9b2Gw9E8m"
+      line: "{{ out.stdout }}"
+  tags:
+    - backup
 
 - name: backup galera cluster
   mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
     state: dump
     name: all
     target: "{{ path_backup }}all_{{ ansible_date_time.date }}.sql"
   tags:
     - backup
-
 
 
 - name: scp backup to server
@@ -23,6 +60,9 @@
     dest: "{{ backup_storage_path }}all_{{ ansible_date_time.date }}.sql"
     flat: yes
     validate_checksum: no
+
+- name: scp backup to nfs server
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@172.20.4.7:/storage/glance/backup_mysql_beh/"
   tags:
     - backup
 
@@ -32,12 +72,17 @@
   tags:
     - backup
   
+
 - name: scp backup to nfs server
-  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql 172.16.109.9:/storage/glance/backup_mysql_tbz/"
-  #command: "rsync  -azvP {{ backup_storage_path }}all_{{ ansible_date_time.date }}.sql 172.16.104.9:/storage/glance/backup_mysql_tbz/"
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@nfs:/storage/glance/backup_mysql/"
   tags:
     - backup
-
+    
+- name: scp backup to checkDB server
+  shell: "scp {{ path_backup }}all_{{ ansible_date_time.date }}.sql root@checkDB:/home/mua/db_file"
+  tags:
+    - backup
+    - checkDB
 
 - name: restart mariadb
   service: name=mysql enabled=yes state=restarted

@@ -1,0 +1,110 @@
+---
+- hosts: DR
+  become_user: ansible_user
+  become: true
+  vars:
+    - pass1: "password"
+    - backup_dir: "/home/ansible_user/db_file/"
+
+
+  tasks:
+    - set_fact:
+        mysql_root_password: '{{ pass1 }}'
+        
+    - debug:
+        msg: "root pass: {{ mysql_root_password }}"
+        
+    # First Step: Check Backup Size
+
+    - name: get backup file name
+      find:
+        paths: "{{ backup_dir }}"
+        patterns: "all_{{ ansible_date_time.date }}.sql"
+      register: files_matched
+
+    - set_fact:
+        file_name: "{{ files_matched.files[0].path }}"
+    - debug:
+        msg: "{{ file_name }}"
+         
+    - name: Read size of old_backup
+      slurp:
+        src: "/home/ansible_user/filesize.txt"
+      register: slurpfile
+    - set_fact:
+        old_size: "{{ slurpfile['content'] | b64decode | int}}"
+
+    - debug:
+        msg: "old_size: {{ old_size }}"
+
+    - name: compare with old_backup size
+      shell: echo "Warning! New backup size is less than old backup"
+      when: old_size >  new_size
+      failed_when: old_size >  new_size
+    
+    - name: Save size of new backup
+      shell: echo {{ new_size }} > "/home/ansible_user/filesize.txt"
+      
+
+    # Second Step: Backup Restore and run test query
+    
+    - name: Remove database
+      mysql_db:
+        name: "{{ item }}"
+        state: absent
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+      loop: ['cinder', 'glance', 'heat', 'keystone', 'neutron', 'nova', 'nova_api', 'nova_cell0', 'rally']
+
+    - name: get database size
+      stat:
+        path: "{{ file_name }}"
+      register: file_size
+    - set_fact:
+        new_size: "{{ ( file_size.stat.size / 1024 | pow(2) ) | round | int }}"
+
+    - name: restore database  
+      mysql_db:
+        name: all
+        state: import
+        target: "{{ file_name }}" 
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+
+
+
+    - name: run query on glance database
+      community.mysql.mysql_query:
+        login_db: glance
+        query: SELECT * FROM image_locations
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+      register: res
+    - name: show query result
+      debug: var=res.query_result
+
+
+
+    - name: run query on nova database
+      community.mysql.mysql_query:
+        login_db: nova
+        query: SELECT * FROM compute_nodes
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+      register: res
+    - name: show query result
+      debug: var=res.query_result
+
+    # Third Step: Remove backup file
+
+    - name: get list of files
+      find:
+        paths: "{{ backup_dir }}"
+        patterns: "*"
+      register: files_to_delete
+
+    - name: Remove old files backup
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ files_to_delete.files }}"

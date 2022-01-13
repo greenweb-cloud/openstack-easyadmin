@@ -1,13 +1,41 @@
 ---
 # defaults file for pre-deploy
 
-disk_cinder_volumes: "/dev/md0"
+domian_name: "domain"
 
-proxy_url: "http://ip:3128/"
+
+##proxy_url: "http://ip:3128/"
 
 pkgs_remove: ['netplan.io', 'resolvconf', 'cloud-init', 'keepalived', 'haproxy']
-pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs25-nox', 'tcpdump', 'vlan', 'python', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop']
+pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs', 'tcpdump', 'vlan', 'python3', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop', 'htop']
 
-preferred_dns: "ip"
-fallback_dns: "8.8.8.8"
-search_domains: ["iranserver"]
+preferred_dns: "8.8.8.8"
+fallback_dns: "4.2.2.4"
+search_domains: ["domain"]
+interfaces:
+  - ens1
+  - ens2
+
+
+extlb_vlanID: "1"
+storage_vlanID: "2"
+vxlan_vlanID: "3"
+ceph_vlanID: "4"
+
+extlb_NET: "192.168.1"
+extlb_CIDR: "24"
+extlb_GW: "192.168.1.254"
+
+mgmt_NET: "192.168.2"
+mgmt_CIDR: "24"
+mgmt_GW: "192.168.2.254"
+
+storage_NET: "192.168.3"
+storage_CIDR: "24"
+
+vxlan_NET: "192.168.3"
+vxlan_CIDR: "24"
+
+
+ceph_NET: "192.168.4"
+ceph_CIDR : "24"

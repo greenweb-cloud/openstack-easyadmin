@@ -4,8 +4,16 @@
 # List a Project Quota
 - name: List Quota Project
   os_quota:
+<<<<<<< HEAD
+#    cloud: "{{ CLOUD_NAME }}"
+    name: "{{ item.name }}"
+  with_items:
+    - "{{ projects }}"
+
+=======
     cloud: "{{ CLOUD_NAME }}"
     name: "{{ project_name }}"
+>>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
   register: quota_var
 #  tag: list
 #quota_var is varible 
@@ -13,9 +21,15 @@
     var: quota_var
 
 # Complete example based on list of projects
+<<<<<<< HEAD
+#- name: Update quotas
+#  os_quota:
+#    name: "{{ item.name }}"
+=======
 - name: Update quotas
   os_quota:
     name: "{{ item.name }}"
+>>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
 #    backup_gigabytes: "{{ item.backup_gigabytes }}"
 #    backups: "{{ item.backups }}"
 #    cores: "{{ item.cores }}"
@@ -46,7 +60,12 @@
 #      snapshots_lvm: "{{ item.snapshots_lvm }}"
 #    gigabytes_types:
 #      gigabytes_lvm: "{{ item.gigabytes_lvm }}"
+<<<<<<< HEAD
+#  with_items:
+#    - "{{ projects }}"
+=======
   with_items:
     - "{{ projects }}"
+>>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
 #  when: item.state == "present"
 #  tag: update

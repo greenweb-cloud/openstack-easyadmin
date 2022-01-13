@@ -3,7 +3,11 @@
 domain_name: "default"
 projects:
   name: "admin"
+<<<<<<< HEAD
+  cores: 100
+=======
 
+>>>>>>> 824d53c4f04f0332624dff6354028a08dc185355
 project_name: admin
 
 #projects_name: ['demo1']

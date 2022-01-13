@@ -1,0 +1,71 @@
+---
+- name: RabbitMQ Status
+  shell: rabbitmqctl cluster_status
+  register: status_output
+  when: "'infra1-rabbit' in ansible_hostname"
+  tags: [ 'status' ]
+- name: show status_output
+  debug: 
+    var: status_output.stdout_lines
+  tags: [ 'status' ]
+
+- name: Stop RabbitMq on infra1-rabbit-mq
+  shell: rabbitmqctl stop_app
+  register: status_output1
+  delegate_to: "infra1_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output1
+  debug: 
+    var: status_output1.stdout_lines
+  tags: [ 'restart' ]
+
+- name: Stop RabbitMq on infra2-rabbit-mq
+  shell: rabbitmqctl stop_app
+  register: status_output2
+  delegate_to: "infra2_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output2
+  debug: 
+    var: status_output2.stdout_lines
+  tags: [ 'restart' ]
+
+- name: Stop RabbitMq on infra3-rabbit-mq
+  shell: rabbitmqctl stop_app
+  register: status_output3
+  delegate_to: "infra3_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output3
+  debug:
+    var: status_output3.stdout_lines
+  tags: [ 'restart' ]
+
+
+- name: Start RabbitMq on infra3-rabbit-mq
+  shell: rabbitmqctl start_app
+  register: status_output3
+  delegate_to: "infra3_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output3
+  debug:
+    var: status_output3.stdout_lines
+  tags: [ 'restart' ]
+
+- name: Start RabbitMq on infra2-rabbit-mq
+  shell: rabbitmqctl start_app
+  register: status_output2
+  delegate_to: "infra2_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output2
+  debug:
+    var: status_output2.stdout_lines
+  tags: [ 'restart' ]
+
+- name: Start RabbitMq on infra1-rabbit-mq
+  shell: rabbitmqctl start_app
+  register: status_output1
+  delegate_to: "infra1_rabbit"
+  tags: [ 'restart' ]
+- name: show status_output1
+  debug:
+    var: status_output1.stdout_lines
+  tags: [ 'restart' ]
