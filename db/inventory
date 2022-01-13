@@ -2,12 +2,7 @@
 127.0.0.1
 
 [BR]
-infra3-galera-container-1607abb7
 infra3-galera-container-7f8a2401
-galera_container2
-
-[nfs]
-nfs
 
 [destroy]
 infra1
