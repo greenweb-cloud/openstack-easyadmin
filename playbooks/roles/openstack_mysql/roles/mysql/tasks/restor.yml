@@ -1,0 +1,9 @@
+- name: Restore database
+  mysql_db:
+    name: all 
+    state: import
+    target: "{{ path_backup }}all.sql"
+
+   tags:
+    - restore
+

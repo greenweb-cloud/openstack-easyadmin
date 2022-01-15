@@ -1,0 +1,8 @@
+---
+# defaults file for test_role
+projects:
+  project1:
+    name: ali
+  project2:
+    name: hashem
+

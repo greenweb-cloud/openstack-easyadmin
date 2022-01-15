@@ -6,7 +6,6 @@ backup_storage_path: "/home/mysql_backup/"
 name_backup_file_infra1: backup_galera_infra1
 name_backup_file_infra2: backup_galera_infra2
 name_backup_file_infra3: backup_galera_infra3
-date: "{{ 'date +%Y%m%d-%H%M' }}"
 backup_storage_path: "/home/mysql_backup/"
 db_names:
   - cinder
@@ -22,3 +21,12 @@ db_names:
 setup_hosts: "openstack-ansible /opt/openstack-ansible/playbooks/setup-hosts.yml"
 
 setup_infrastructure: "openstack-ansible /opt/openstack-ansible/playbooks/setup-infrastructure.yml"
+
+infra3_galera: "infra3-galera-container-7f8a2401"
+
+rsa_pub: "~/.ssh/id_rsa.pub"
+
+copy_to_nfs: "~/.ssh/authorized_keys"
+
+nfs_ip: "nfs"
+
