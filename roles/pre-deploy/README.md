@@ -53,9 +53,11 @@ examples:
 
 ```
 ansible-playbook -i inventory pre-deploy.yml --tags compute -e 'machine=compute'
-ansible-playbook -i inventory pre-deploy.yml --tags infra -e 'machine=infra'
 ```
 
+```
+ansible-playbook -i inventory pre-deploy.yml --tags infra -e 'machine=infra'
+```
 
 License
 -------
