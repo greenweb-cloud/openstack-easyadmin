@@ -46,14 +46,3 @@ infra3
 ` ansible-playbook -i /path/to/hosts --tag compute -e 'machine=computes' pre-deploy.yml  `
 
 
-
-# API's
-```
-# When Mysql DOWN
-http://IP:8586/v1/server/{REGION}_up?key={REGION}_1&status=down
-# When Mysql UP
-http://IP:8586/v1/server/{REGION}_up?key={REGION}_1&status=up
-```
-
-# Monitoring LifeCycle
-![test drawio](https://user-images.githubusercontent.com/90821955/150669768-8d26baf5-ced5-472f-946f-0e42720cc35a.png)
