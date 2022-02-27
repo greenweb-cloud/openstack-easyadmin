@@ -16,20 +16,12 @@
     - infra
     - compute
     - apt
-    - mon    
+    - mon
     - osd
-      ##- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
-      ##template:
-      ## src: 90curtin-aptproxy.j2
-      ##dest: /etc/apt/apt.conf.d/90curtin-aptproxy
-      ##tags:
-      ##- infra
-      ##- compute
-      ##- update-proxy
-    
-- name: Configure /etc/systemd/resolved.conf 
+
+- name: Configure /etc/systemd/resolved.conf
   template:
-    src: resolved.conf.j2             
+    src: resolved.conf.j2
     dest: /etc/systemd/resolved.conf
   notify:
   - restart resolved
@@ -69,7 +61,7 @@
     - compute
     - mon
     - osd
- 
+
 - name: Upgrade all packages to the latest version
   apt:
     name: "*"
@@ -79,7 +71,7 @@
     - compute
     - mon
     - osd
-  
+
 - name: Set timezone to Asia/Tehran
   community.general.timezone:
     name: Asia/Tehran
@@ -91,7 +83,7 @@
     - mon
     - osd
 
-- name: Configure /etc/modules file 
+- name: Configure /etc/modules file
   copy:
     src: modules
     dest: /etc/modules
@@ -101,23 +93,23 @@
     - mon
     - osd
 
-- name: Configure /etc/hosts file                                                              
+- name: Configure /etc/hosts file
   template:
-    src: hosts.j2                    
-    dest: /etc/hosts                                                            
+    src: hosts.j2
+    dest: /etc/hosts
   tags:
     - infra
     - compute
 
-- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory 
+- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory
   file:
     path: "{{ item }}"
     state: absent
-  with_items:  
+  with_items:
     - "/openstack/"
     - "/etc/haproxy"
     - "/etc/keepalived/"
-  tags: 
+  tags:
     - infra
     - compute
 
@@ -127,14 +119,14 @@
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
-    
+
 - name: Configure network for compute node
   template:
     src: compute-interfaces.j2
     dest: /etc/network/interfaces
   tags:
     - compute
-    
+
 - name: Configure network for infra node
   template:
     src: infra1-interfaces.j2
@@ -161,15 +153,3 @@
     - osd
 
 
-
-
-- name: Reboot a Linux machine 
-  reboot:
-    reboot_timeout: 1800
-  tags: 
-  - reboot
-    #- name: Reboot after 5 seconds
-    #  shell: ( sleep 5 ; reboot ) & 
-    #  tags: 
-    #  - compute
-    #  - infra
