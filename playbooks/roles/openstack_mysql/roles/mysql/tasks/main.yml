@@ -1,4 +1,0 @@
----
-# tasks file for mysql_backup
-- include: backup.yml
-- include: backup_one_by_one.yml
