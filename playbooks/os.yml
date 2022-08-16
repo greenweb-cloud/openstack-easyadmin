@@ -1,0 +1,6 @@
+---
+- hosts: computes #utility_container
+#  gather_facts: yes
+
+  roles:
+    - os  

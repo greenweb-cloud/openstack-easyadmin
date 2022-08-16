@@ -21,7 +21,7 @@
           #cloud-config
           chpasswd:
             list: |
-              ubuntu: "ali@123"
+              ubuntu: "passs"
             expire: False
           packages:
             - ansible

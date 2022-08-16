@@ -1,0 +1,5 @@
+---
+# defaults file for os
+
+user: root
+cache_valid_time: 3600
