@@ -50,9 +50,14 @@ you can use the following tags:
   - clean-env: This tag will clean environments
 
 examples:
-	# ansible-playbook -i hosts pre-deploy.yml --tags compute
-	# ansible-playbook -i hosts pre-deploy.yml --tags infra
 
+```
+ansible-playbook -i inventory pre-deploy.yml --tags compute -e 'machine=compute'
+```
+
+```
+ansible-playbook -i inventory pre-deploy.yml --tags infra -e 'machine=infra'
+```
 
 License
 -------
