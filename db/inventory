@@ -2,9 +2,13 @@
 127.0.0.1
 
 [BR]
-#galera_container1
-galera_container2
+##infra1-galera-container-3842a2be
+infra2-galera-container-fd4eb2b6
+#galera_container2
 #galera_container3
+
+[nfs]
+172.16.104.9
 
 [destroy]
 infra1
