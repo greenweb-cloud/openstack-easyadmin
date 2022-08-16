@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  gather_facts: yes
+
+  tasks:
+    - name: create vm with password
+#      os_server_info:
+#        server: compute*
+#        filters:
+#          vm_state: active
+#      register: result
+#    - debug:
+#        msg: "{{ result }}"
+      os_server:
+        name: vm1
+        state: present
+        image: "ubuntu20.4"
+        flavor: "VpsX-4"
+        network: "public"
+        userdata: |
+          #cloud-config
+          chpasswd:
+            list: |
+              ubuntu: "passs"
+            expire: False
+          packages:
+            - ansible
+          package_upgrade: true
+
+
