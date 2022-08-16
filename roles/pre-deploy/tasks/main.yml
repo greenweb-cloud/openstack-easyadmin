@@ -1,30 +1,44 @@
 ---
 # tasks file for pre-deploy
-
-- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
+- name: repo
   template:
-    src: 90curtin-aptproxy.j2
-    dest: /etc/apt/apt.conf.d/90curtin-aptproxy
+    src: apt-list.j2
+    dest: /etc/apt/sources.list
+  tags:
+    - compute
+    - apt
+    - mon
+    - osd
+
+- name: apt update source list
+  shell: apt update
   tags:
     - infra
     - compute
-    - update-proxy
+    - apt
+    - mon    
+    - osd
+      ##- name: add proxy {{ proxy_url }} to 90curtin-aptprox file
+      ##template:
+      ## src: 90curtin-aptproxy.j2
+      ##dest: /etc/apt/apt.conf.d/90curtin-aptproxy
+      ##tags:
+      ##- infra
+      ##- compute
+      ##- update-proxy
     
-- name: copy resolved.conf and restart resolved   
+- name: Configure /etc/systemd/resolved.conf 
   template:
     src: resolved.conf.j2             
-    dest: /etc/systemd/resolved.conf                                                            
+    dest: /etc/systemd/resolved.conf
+  notify:
+  - restart resolved
   tags:
     - infra
     - compute
-
-- name: restart systemd-resolved service
-  service:
-    name: systemd-resolved
-    state: restarted
-  tags:
-    - infra
-    - compute
+    - resolved
+    - mon
+    - osd
 
 - name: Install packages "{{ pkgs_install }}"
   apt:
@@ -33,6 +47,8 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
 - name: remove packages "{{ pkgs_remove }}"
   apt:
@@ -42,14 +58,18 @@
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
-- name: Update all packages to the latest version
+- name: Update distro to the latest version
   apt:
     upgrade: dist
   tags:
     - infra
     - compute
-
+    - mon
+    - osd
+ 
 - name: Upgrade all packages to the latest version
   apt:
     name: "*"
@@ -57,31 +77,31 @@
   tags:
     - infra
     - compute
-
+    - mon
+    - osd
+  
 - name: Set timezone to Asia/Tehran
-  timezone:
+  community.general.timezone:
     name: Asia/Tehran
+  notify:
+  - restart chronyd
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
-- name: Restart service chrony, in all cases
-  service:
-    name: chrony
-    state: restarted
-  tags:
-    - infra
-    - compute
-
-- name: Copy modules file 
+- name: Configure /etc/modules file 
   copy:
     src: modules
     dest: /etc/modules
   tags:
     - infra
     - compute
+    - mon
+    - osd
 
-- name: copy hosts file                                                              
+- name: Configure /etc/hosts file                                                              
   template:
     src: hosts.j2                    
     dest: /etc/hosts                                                            
@@ -89,7 +109,7 @@
     - infra
     - compute
 
-- name: Clean /openstack folder 
+- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory 
   file:
     path: "{{ item }}"
     state: absent
@@ -101,23 +121,55 @@
     - infra
     - compute
 
-- name: Remove a volume group with name cinder-volumes
-  lvg:
-    vg: cinder-volumes
-    state: absent
-    force: yes
-  tags:
-    - compute
-
-- name: Create cinder-volumes volume group on top of {{ disk_cinder_volumes }}.
-  lvg:
-    vg: cinder-volumes
-    pvs: "{{ disk_cinder_volumes }}"
-  tags:
-    - compute
 
 - name: clean LXC containers
   shell:
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
+    
+- name: Configure network for compute node
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
+    
+- name: Configure network for infra node
+  template:
+    src: infra1-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - infra
+
+
+
+- name: Configure network for ceph monitor node
+  template:
+    src: monitor-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - mon
+
+
+
+- name: Configure network for ceph osd node
+  template:
+    src: ceph-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - osd
+
+
+
+
+- name: Reboot a Linux machine 
+  reboot:
+    reboot_timeout: 1800
+  tags: 
+  - reboot
+    #- name: Reboot after 5 seconds
+    #  shell: ( sleep 5 ; reboot ) & 
+    #  tags: 
+    #  - compute
+    #  - infra

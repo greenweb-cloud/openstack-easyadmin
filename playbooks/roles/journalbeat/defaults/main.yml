@@ -1,0 +1,5 @@
+---
+# defaults file for journalbeat
+logstash_host: 172.16.105.247
+logstash_port: 5044
+

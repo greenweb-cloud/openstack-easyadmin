@@ -1,0 +1,17 @@
+---
+- name: Compress Directory contents of "{{inventory_hostname}}"
+  archive:
+    path: 
+    - /etc/keepalived
+    - /etc/network*
+    - /etc/haproxy
+    - /etc/lxc
+    - /etc/neutron
+    - /openstack
+    dest: "/Backup/{{inventory_hostname}}.tgz"
+    format: gz
+
+- name: Save current state of the firewall of "{{inventory_hostname}}"
+  community.general.iptables_state:
+    state: saved
+    path: "/Backup/iptables-{{inventory_hostname}}.txt"

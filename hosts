@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+[local]
+127.0.0.1
+>>>>>>> 949258c4850a9898a5496cf242320c52567dd14c
 [all]
 infra1
 infra2
@@ -7,6 +12,7 @@ compute2
 
 
 [computes]
+<<<<<<< HEAD
 compute1
 compute2
 compute3
@@ -35,8 +41,19 @@ compute25
 
 
 
+=======
+##compute1
+##compute2
+compute3
+compute4
+>>>>>>> 949258c4850a9898a5496cf242320c52567dd14c
 
 [infras]
 infra1
 infra2
 infra3
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 949258c4850a9898a5496cf242320c52567dd14c

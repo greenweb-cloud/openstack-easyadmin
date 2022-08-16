@@ -1,0 +1,3 @@
+---
+# tasks file for mysql_backup
+- include: lxc_destroy_galera_cluster.yml
