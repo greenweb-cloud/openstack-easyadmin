@@ -1,5 +1,0 @@
----
-# defaults file for os_qouta-project
-domain_name: "default"
-projects:
-  name: "admin"

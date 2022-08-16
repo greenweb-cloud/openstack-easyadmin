@@ -1,8 +1,0 @@
----
-# handlers file for pre-deploy
-- name: restart resolved                                
-  tags:                                                                                                
-  - service                                                                                                                          
-  service:                                                                                        
-    name: systemd-resolved                                                                                
-    state: restarted                                                                                   

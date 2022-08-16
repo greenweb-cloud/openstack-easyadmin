@@ -1,9 +1,0 @@
----
-# tasks file for test_role
-tasks:
-  - name: test withItams
-    debug:
-      msg: "{{ item.name }}"
-    with_items:
-      "{{ projects }}"
-
