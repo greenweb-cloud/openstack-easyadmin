@@ -1,5 +1,5 @@
 ---
-- hosts: all_compute #utility_container
+- hosts: "{{ host_gp }}" #utility_container
 #  gather_facts: yes
 
   roles:
