@@ -9,33 +9,36 @@ domian_name: "domain"
 pkgs_remove: ['netplan.io', 'resolvconf', 'cloud-init', 'keepalived', 'haproxy']
 pkgs_install: ['ifupdown', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony', 'emacs', 'tcpdump', 'vlan', 'python3', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop', 'htop']
 
+ovs_pkgs_remove : ['ifupdown', 'resolvconf', 'cloud-init', 'keepalived', 'haproxy']
+ovs_pkgs_install : ['netplan.io', 'openvswitch-switch', 'aptitude', 'bridge-utils', 'debootstrap', 'ifenslave', 'ifenslave-2.6', 'lsof', 'lvm2', 'chrony','python3', 'nmap', 'fping', 'traceroute', 'nload', 'ethstats', 'iftop', 'htop' ]
+
 preferred_dns: "8.8.8.8"
 fallback_dns: "4.2.2.4"
 search_domains: ["domain"]
 interfaces:
-  - ens1
-  - ens2
+  - ens160
+  - ens192
 
 
-extlb_vlanID: "1"
-storage_vlanID: "2"
-vxlan_vlanID: "3"
-ceph_vlanID: "4"
+extlb_vlanID: "40"
+storage_vlanID: "30"
+vxlan_vlanID: "20"
+ceph_vlanID: "10"
 
 extlb_NET: "192.168.1"
 extlb_CIDR: "24"
 extlb_GW: "192.168.1.254"
 
 mgmt_NET: "192.168.2"
-mgmt_CIDR: "24"
+mgmt_CIDR: "22"
 mgmt_GW: "192.168.2.254"
 
 storage_NET: "192.168.3"
 storage_CIDR: "24"
 
-vxlan_NET: "192.168.3"
+vxlan_NET: "192.168.4"
 vxlan_CIDR: "24"
 
 
-ceph_NET: "192.168.4"
+ceph_NET: "192.168.5"
 ceph_CIDR : "24"
