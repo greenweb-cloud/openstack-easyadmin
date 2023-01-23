@@ -42,8 +42,11 @@ infra3
 
 # step 3
 
-``` ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' pre-deploy.yml ```
-
-``` ansible-playbook -i /path/to/hosts --tag compute -e 'machine=computes' pre-deploy.yml ```
+``` 
+ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' pre-deploy.yml 
+```
+``` 
+ansible-playbook -i /path/to/hosts --tag compute -e 'machine=computes' pre-deploy.yml
+```
 
 
