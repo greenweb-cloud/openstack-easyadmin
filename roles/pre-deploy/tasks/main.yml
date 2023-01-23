@@ -9,6 +9,7 @@
     - apt
     - mon
     - osd
+    - ovs
 
 - name: apt update source list
   shell: apt update
@@ -18,6 +19,7 @@
     - apt
     - mon
     - osd
+    - ovs
 
 - name: Configure /etc/systemd/resolved.conf
   template:
@@ -31,6 +33,7 @@
     - resolved
     - mon
     - osd
+    - ovs
 
 - name: Install packages "{{ pkgs_install }}"
   apt:
@@ -41,6 +44,8 @@
     - compute
     - mon
     - osd
+
+
 
 - name: remove packages "{{ pkgs_remove }}"
   apt:
@@ -53,6 +58,25 @@
     - mon
     - osd
 
+
+- name: remove packages "{{ ovs_pkgs_remove }}"
+  apt:
+    name: "{{ ovs_pkgs_remove }}"
+    purge: yes
+    state: absent
+  tags:
+    - ovs
+
+
+- name: Install packages "{{ ovs_pkgs_install }}"
+  apt:
+    name: "{{ ovs_pkgs_install }}"
+    state: present
+  tags:
+    - ovs
+
+
+
 - name: Update distro to the latest version
   apt:
     upgrade: dist
@@ -61,6 +85,7 @@
     - compute
     - mon
     - osd
+    - ovs
 
 - name: Upgrade all packages to the latest version
   apt:
@@ -71,6 +96,7 @@
     - compute
     - mon
     - osd
+    - ovs
 
 - name: Set timezone to Asia/Tehran
   community.general.timezone:
@@ -82,6 +108,7 @@
     - compute
     - mon
     - osd
+    - ovs
 
 - name: Configure /etc/modules file
   copy:
@@ -92,6 +119,7 @@
     - compute
     - mon
     - osd
+    - ovs
 
 - name: Configure /etc/hosts file
   template:
@@ -100,6 +128,7 @@
   tags:
     - infra
     - compute
+    - ovs
 
 - name: Clean up  /openstack /etc/haproxy /etc/keepalived directory
   file:
@@ -112,13 +141,14 @@
   tags:
     - infra
     - compute
-
+    - ovs
 
 - name: clean LXC containers
   shell:
     cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
   tags:
     - infra
+    - ovs_infra
 
 - name: Configure network for compute node
   template:
@@ -133,7 +163,6 @@
     dest: /etc/network/interfaces
   tags:
     - infra
-
 
 
 - name: Configure network for ceph monitor node
@@ -152,4 +181,18 @@
   tags:
     - osd
 
+# manage compute network by ovs
+- name: Configure network for compute node
+  template:
+    src: ovs-compute-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_compute
 
+# manage infra network by ovs
+- name: Configure network for infra node
+  template:
+    src: ovs-infra-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_infra

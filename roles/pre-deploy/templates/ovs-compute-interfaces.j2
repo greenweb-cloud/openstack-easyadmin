@@ -1,0 +1,60 @@
+{% set ip = ansible_ens160.ipv4.address.split('.')[-1] %}
+
+
+# This is the network config written by 'ali'
+network:
+    version: 2
+
+    ethernets:
+      {{interfaces[0]}}:
+        dhcp4: false
+        dhcp6: false
+      {{interfaces[1]}}:
+        dhcp4: false
+        dhcp6: false
+
+    vlans:
+#storage
+      {{ interfaces[0] }}.{{ storage_vlanID }}:
+          id: {{ storage_vlanID }}
+          link: {{ interfaces[0] }}
+#vxlan
+      {{ interfaces[1] }}.{{ vxlan_vlanID }}:
+          id: {{ vxlan_vlanID }}
+          link: {{ interfaces[1] }}
+
+    bridges:
+        br-mgmt:
+          interfaces: 
+          - {{interfaces[0]}}
+          addresses: 
+          - {{ mgmt_NET }}.{{ ip }}/{{ mgmt_CIDR }}
+          gateway4: {{ mgmt_GW }}
+          mtu: 1500
+          nameservers:
+            addresses: [8.8.8.8]
+          parameters:
+            stp: true
+            forward-delay: 4
+          dhcp4: no
+          dhcp6: no
+          openvswitch: {}
+         
+        br-storage:
+            addresses:
+            - {{ storage_NET }}.{{ ip }}/{{ storage_CIDR }}
+            interfaces:
+            - {{ interfaces[0] }}.{{ storage_vlanID }}
+            openvswitch: {}
+ 
+        br-vxlan:
+            addresses:
+            - {{ vxlan_NET }}.{{ ip }}/{{ vxlan_CIDR }}
+            interfaces:
+            - {{ interfaces[1] }}.{{ vxlan_vlanID }}
+            openvswitch: {}
+ 
+ 
+        br-vlan:
+            interfaces: [{{ interfaces[1] }}]
+            openvswitch: {}
