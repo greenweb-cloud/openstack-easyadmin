@@ -49,9 +49,9 @@ network:
             - {{ interfaces[0] }}.{{ storage_vlanID }}
             openvswitch: {}
             mtu: 9000
-          parameters:
-            stp: true
-            forward-delay: 0
+            parameters:
+              stp: true
+              forward-delay: 0
 
         br-vxlan:
             addresses:
@@ -60,9 +60,9 @@ network:
             - {{ interfaces[1] }}.{{ vxlan_vlanID }}
             openvswitch: {}
             mtu: 9000
-          parameters:
-            stp: true
-            forward-delay: 0 
+            parameters:
+              stp: true
+              forward-delay: 0 
  
         br-vlan:
             interfaces: [{{ interfaces[1] }}]
