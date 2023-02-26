@@ -1,0 +1,4 @@
+---
+# tasks file for haproxy_exporter
+- include: config_haproxy.yaml
+- include: copy_node_exporter.yaml

@@ -1,0 +1,37 @@
+---
+
+# Configuring Ntp server
+
+#- name: run Asia/Tehran
+#  shell: "timedatectl set-timezone Asia/Tehran"
+#  tags:
+#    - ntp
+
+- name: Set timezone to Asia/Tehran
+  timezone:
+    name: Asia/Tehran
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+    - ntp
+
+- name: make sure chronyd is installed
+  apt:
+    name: chrony
+    state: latest
+    update_cache: yes
+  tags:
+    - ntp
+
+- name: Configure NTP
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+  tags:
+    - ntp
+  notify:
+  - restart chronyd
+
