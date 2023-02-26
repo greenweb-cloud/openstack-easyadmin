@@ -1,0 +1,83 @@
+---
+
+- name: remove packages "{{ ovs_pkgs_remove }}"
+  apt:
+    name: "{{ ovs_pkgs_remove }}"
+    purge: yes
+    state: absent
+  tags:
+    - ovs
+
+
+- name: Install packages "{{ ovs_pkgs_install }}"
+  apt:
+    name: "{{ ovs_pkgs_install }}"
+    state: present
+  tags:
+    - ovs
+
+
+
+- name: Configure network for compute node
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
+
+- name: Configure network for infra node
+  template:
+    src: infra1-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - infra
+
+
+- name: Configure network for ceph monitor node
+  template:
+    src: monitor-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - mon
+
+
+
+- name: Configure network for ceph osd node
+  template:
+    src: ceph-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - osd
+
+
+# Delete All Netplan Files
+- name: delete all netplan files
+  shell: "rm -rf /etc/netplan/*"
+  tags:
+    - ovs
+
+
+
+# manage compute network by ovs
+- name: Configure network for compute node
+  template:
+    src: ovs-compute-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_compute
+
+# manage infra network by ovs
+- name: Configure network for infra node
+  template:
+    src: ovs-infra-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_infra
+
+
+
+
+
+
+
+

@@ -1,0 +1,242 @@
+---
+# tasks file for pre-deploy
+- name: repo
+  template:
+    src: apt-list.j2
+    dest: /etc/apt/sources.list
+  tags:
+    - compute
+    - apt
+    - mon
+    - osd
+    - ovs
+
+- name: apt update source list
+  shell: apt update
+  tags:
+    - infra
+    - compute
+    - apt
+    - mon
+    - osd
+    - ovs
+
+- name: Configure /etc/systemd/resolved.conf
+  template:
+    src: resolved.conf.j2
+    dest: /etc/systemd/resolved.conf
+  notify:
+  - restart resolved
+  tags:
+    - infra
+    - compute
+    - resolved
+    - mon
+    - osd
+    - ovs
+
+- name: Install packages "{{ pkgs_install }}"
+  apt:
+    name: "{{ pkgs_install }}"
+    state: present
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+
+
+
+- name: remove packages "{{ pkgs_remove }}"
+  apt:
+    name: "{{ pkgs_remove }}"
+    purge: yes
+    state: absent
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+
+
+- name: remove packages "{{ ovs_pkgs_remove }}"
+  apt:
+    name: "{{ ovs_pkgs_remove }}"
+    purge: yes
+    state: absent
+  tags:
+    - ovs
+
+
+- name: Install packages "{{ ovs_pkgs_install }}"
+  apt:
+    name: "{{ ovs_pkgs_install }}"
+    state: present
+  tags:
+    - ovs
+
+
+
+- name: Update distro to the latest version
+  apt:
+    upgrade: dist
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+
+- name: Set timezone to Asia/Tehran
+  community.general.timezone:
+    name: Asia/Tehran
+  notify:
+  - restart chronyd
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+
+- name: Configure /etc/modules file
+  copy:
+    src: modules
+    dest: /etc/modules
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+
+- name: Configure /etc/hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+  tags:
+    - infra
+    - compute
+    - ovs
+
+- name: Clean up  /openstack /etc/haproxy /etc/keepalived directory
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/openstack/"
+    - "/etc/haproxy"
+    - "/etc/keepalived/"
+  tags:
+    - infra
+    - compute
+    - ovs
+
+- name: clean LXC containers
+  shell:
+    cmd: "x=$(lxc-ls); for i in $x; do lxc-stop $i; lxc-destroy $i; done"
+  tags:
+    - infra
+    - ovs_infra
+
+- name: Configure network for compute node
+  template:
+    src: compute-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - compute
+
+- name: Configure network for infra node
+  template:
+    src: infra1-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - infra
+
+
+- name: Configure network for ceph monitor node
+  template:
+    src: monitor-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - mon
+
+
+
+- name: Configure network for ceph osd node
+  template:
+    src: ceph-interfaces.j2
+    dest: /etc/network/interfaces
+  tags:
+    - osd
+
+
+# Delete All Netplan Files
+- name: delete all netplan files
+  shell: "rm -rf /etc/netplan/*"
+  tags:
+    - ovs
+
+
+
+# manage compute network by ovs
+- name: Configure network for compute node
+  template:
+    src: ovs-compute-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_compute
+
+# manage infra network by ovs
+- name: Configure network for infra node
+  template:
+    src: ovs-infra-interfaces.j2
+    dest: /etc/netplan/00-installer-config.yaml
+  tags:
+    - ovs_infra
+
+
+
+# Configuring Ntp server on Openstack
+- name: run Asia/Tehran
+  shell: "timedatectl set-timezone Asia/Tehran"
+  tags:
+    - ntp
+
+
+- name: make sure chronyd is installed
+  apt:
+    name: chrony
+    state: latest
+    update_cache: yes
+  tags:
+    - ntp
+
+
+- name: Configure NTP
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+  tags:
+    - ntp
+
+- name: Restart chronyd
+  service:
+    name: chronyd
+    state: restarted
+  tags:
+    - ntp
+
+
+

@@ -1,4 +1,4 @@
-{% set ip = ansible_ens160.ipv4.address.split('.')[-1] %}
+{% set ip = ansible_eno1.ipv4.address.split('.')[-1] %}
 
 
 # This is the network config written by 'ali'
@@ -29,13 +29,15 @@ network:
           - {{interfaces[0]}}
           addresses: 
           - {{ mgmt_NET }}.{{ ip }}/{{ mgmt_CIDR }}
-          gateway4: {{ mgmt_GW }}
-          mtu: 1500
+          routes:
+            - to: default
+              via: {{ mgmt_GW }}
+          mtu: 9000
           nameservers:
             addresses: [8.8.8.8]
           parameters:
             stp: true
-            forward-delay: 4
+            forward-delay: 0
           dhcp4: no
           dhcp6: no
           openvswitch: {}
@@ -46,14 +48,21 @@ network:
             interfaces:
             - {{ interfaces[0] }}.{{ storage_vlanID }}
             openvswitch: {}
- 
+            mtu: 9000
+          parameters:
+            stp: true
+            forward-delay: 0
+
         br-vxlan:
             addresses:
             - {{ vxlan_NET }}.{{ ip }}/{{ vxlan_CIDR }}
             interfaces:
             - {{ interfaces[1] }}.{{ vxlan_vlanID }}
             openvswitch: {}
- 
+            mtu: 9000
+          parameters:
+            stp: true
+            forward-delay: 0 
  
         br-vlan:
             interfaces: [{{ interfaces[1] }}]
