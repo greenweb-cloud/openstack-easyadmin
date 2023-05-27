@@ -1,0 +1,8 @@
+---
+
+- name: Include Origin Flavor
+  include: origin.yml
+
+- name: Include Dedicate Flavor
+  include: dedicate.yml
+
