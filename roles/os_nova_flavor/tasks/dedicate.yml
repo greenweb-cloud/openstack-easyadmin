@@ -1,0 +1,277 @@
+---
+# tasks file for os_nova_flavor
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F1
+    ram: 2048
+    vcpus: 1
+    disk: 15
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 1
+#add feature cpu dedicate
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0
+      "hw:numa_mem.0" : 2048
+      "hw:numa_nodes" : 1
+  tags:
+  - cpu_dedicate
+
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F2
+    ram: 2048
+    vcpus: 2
+    disk: 30
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 2
+#add feature cpu dedicate
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0
+      "hw:numa_cpus.1" : 1
+      "hw:numa_mem.0" : 1024
+      "hw:numa_mem.1" : 1024
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+
+
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F3
+    ram: 4096
+    vcpus: 2
+    disk: 35
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 2
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0
+      "hw:numa_cpus.1" : 1
+      "hw:numa_mem.0" : 2048
+      "hw:numa_mem.1" : 2048
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate  
+
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F4
+    ram: 8192
+    vcpus: 2
+    disk: 45
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets" : 2  
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0
+      "hw:numa_cpus.1" : 1
+      "hw:numa_mem.0" : 4096
+      "hw:numa_mem.1" : 4096
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F5
+    ram: 6144
+    vcpus: 3
+    disk: 60
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0
+      "hw:numa_cpus.1" : 1,2
+      "hw:numa_mem.0" : 2048
+      "hw:numa_mem.1" : 4096
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F6
+    ram: 8192
+    vcpus: 4
+    disk: 80
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1
+      "hw:numa_cpus.1" : 2,3
+      "hw:numa_mem.0" : 4096
+      "hw:numa_mem.1" : 4096
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F7
+    ram: 16384
+    vcpus: 4
+    disk: 100
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1
+      "hw:numa_cpus.1" : 2,3
+      "hw:numa_mem.0" : 8192
+      "hw:numa_mem.1" : 8192
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F8
+    ram: 16384
+    vcpus: 8
+    disk: 115
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3
+      "hw:numa_cpus.1" : 4,5,6,7
+      "hw:numa_mem.0" : 8192
+      "hw:numa_mem.1" : 8192
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+  
+
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F9
+    ram: 32768
+    vcpus: 8
+    disk: 130
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3
+      "hw:numa_cpus.1" : 4,5,6,7
+      "hw:numa_mem.0" : 16384
+      "hw:numa_mem.1" : 16384
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F10
+    ram: 49152
+    vcpus: 8
+    disk: 145
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3
+      "hw:numa_cpus.1" : 4,5,6,7
+      "hw:numa_mem.0" : 32768
+      "hw:numa_mem.1" : 32768
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F11
+    ram: 32768
+    vcpus: 16
+    disk: 160
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3,4,5,6,7
+      "hw:numa_cpus.1" : 8,9,10,11,12,13,14,15
+      "hw:numa_mem.0" : 16384
+      "hw:numa_mem.1" : 16384
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F12
+    ram: 65536
+    vcpus: 16
+    disk: 180
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3,4,5,6,7
+      "hw:numa_cpus.1" : 8,9,10,11,12,13,14,15
+      "hw:numa_mem.0" : 32768
+      "hw:numa_mem.1" : 32768
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: Dedicate-F13
+    ram: 98304
+    vcpus: 24
+    disk: 200
+    is_public : false
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+#add feature cpu dedicate 
+      "hw:cpu_policy" : "dedicated"
+      "hw:numa_cpus.0" : 0,1,2,3,4,5,6,7,9,10,11
+      "hw:numa_cpus.1" : 12,13,14,15,16,17,18,19,20,21,22,23
+      "hw:numa_mem.0" : 49152
+      "hw:numa_mem.1" : 49152
+      "hw:numa_nodes" : 2
+  tags:
+  - cpu_dedicate
+      

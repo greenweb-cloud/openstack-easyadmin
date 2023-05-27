@@ -1,0 +1,913 @@
+---
+# tasks file for os_nova_flavor
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1
+    ram: 2048
+    vcpus: 1
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 1
+
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2
+    ram: 2048
+    vcpus: 2
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 2
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3
+    ram: 4096
+    vcpus: 2
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4
+    ram: 8192
+    vcpus: 2
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5
+    ram: 6144
+    vcpus: 3
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6
+    ram: 8192
+    vcpus: 4
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7
+    ram: 16384
+    vcpus: 4
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8
+    ram: 16384
+    vcpus: 8
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F9
+    ram: 32768
+    vcpus: 8
+    disk: 130
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F10
+    ram: 49152
+    vcpus: 8
+    disk: 145
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F11
+    ram: 32768
+    vcpus: 16
+    disk: 160
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F12
+    ram: 65536
+    vcpus: 16
+    disk: 180
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F13
+    ram: 98304
+    vcpus: 24
+    disk: 200
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+      
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F2
+    ram: 2048
+    vcpus: 2
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 1
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F3
+    ram: 4096
+    vcpus: 2
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 1
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F4
+    ram: 8192
+    vcpus: 2
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets" : 2
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F5
+    ram: 6144
+    vcpus: 3
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F6
+    ram: 8192
+    vcpus: 4
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F7
+    ram: 16384
+    vcpus: 4
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F8
+    ram: 16384
+    vcpus: 8
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F9
+    ram: 32768
+    vcpus: 8
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F10
+    ram: 49152
+    vcpus: 8
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F11
+    ram: 32768
+    vcpus: 16
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F12
+    ram: 65536
+    vcpus: 16
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F1_F13
+    ram: 98304
+    vcpus: 24
+    disk: 15
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F3
+    ram: 4096
+    vcpus: 2
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F4
+    ram: 8192
+    vcpus: 2
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F5
+    ram: 6144
+    vcpus: 3
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F6
+    ram: 8192
+    vcpus: 4
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F7
+    ram: 16384
+    vcpus: 4
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F8
+    ram: 16384
+    vcpus: 8
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F9
+    ram: 32768
+    vcpus: 8
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F10
+    ram: 49152
+    vcpus: 8
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F11
+    ram: 32768
+    vcpus: 16
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F12
+    ram: 65536
+    vcpus: 16
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F2_F13
+    ram: 98304
+    vcpus: 24
+    disk: 30
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F4
+    ram: 8192
+    vcpus: 2
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 1
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F5
+    ram: 6144
+    vcpus: 3
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F6
+    ram: 8192
+    vcpus: 4
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F7
+    ram: 16384
+    vcpus: 4
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F8
+    ram: 16384
+    vcpus: 8
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F9
+    ram: 32768
+    vcpus: 8
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F10
+    ram: 49152
+    vcpus: 8
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F11
+    ram: 32768
+    vcpus: 16
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F12
+    ram: 65536
+    vcpus: 16
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F3_F13
+    ram: 98304
+    vcpus: 24
+    disk: 35
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+   
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F5
+    ram: 6144
+    vcpus: 3
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 3
+      "hw:cpu_sockets" : 1  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F6
+    ram: 8192
+    vcpus: 4
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F7
+    ram: 16384
+    vcpus: 4
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F8
+    ram: 16384
+    vcpus: 8
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F9
+    ram: 32768
+    vcpus: 8
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F10
+    ram: 49152
+    vcpus: 8
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F11
+    ram: 32768
+    vcpus: 16
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F12
+    ram: 65536
+    vcpus: 16
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F4_F13
+    ram: 98304
+    vcpus: 24
+    disk: 45
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F6
+    ram: 8192
+    vcpus: 4
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets" : 2  
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F7
+    ram: 16384
+    vcpus: 4
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F8
+    ram: 16384
+    vcpus: 8
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F9
+    ram: 32768
+    vcpus: 8
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F10
+    ram: 49152
+    vcpus: 8
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F11
+    ram: 32768
+    vcpus: 16
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F12
+    ram: 65536
+    vcpus: 16
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F5_F13
+    ram: 98304
+    vcpus: 24
+    disk: 60
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F7
+    ram: 16384
+    vcpus: 4
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 2
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F8
+    ram: 16384
+    vcpus: 8
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F9
+    ram: 32768
+    vcpus: 8
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F10
+    ram: 49152
+    vcpus: 8
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F11
+    ram: 32768
+    vcpus: 16
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F12
+    ram: 65536
+    vcpus: 16
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F6_F13
+    ram: 98304
+    vcpus: 24
+    disk: 80
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F8
+    ram: 16384
+    vcpus: 8
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F9
+    ram: 32768
+    vcpus: 8
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F10
+    ram: 49152
+    vcpus: 8
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F11
+    ram: 32768
+    vcpus: 16
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F12
+    ram: 65536
+    vcpus: 16
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F7_F13
+    ram: 98304
+    vcpus: 24
+    disk: 100
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8_F9
+    ram: 32768
+    vcpus: 8
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8_F10
+    ram: 49152
+    vcpus: 8
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8_F11
+    ram: 32768
+    vcpus: 16
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8_F12
+    ram: 65536
+    vcpus: 16
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F8_F13
+    ram: 98304
+    vcpus: 24
+    disk: 115
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F9_F10
+    ram: 49152
+    vcpus: 8
+    disk: 130
+    extra_specs:
+      "hw:cpu_cores": 4
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F9_F11
+    ram: 32768
+    vcpus: 16
+    disk: 130
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F9_F12
+    ram: 65536
+    vcpus: 16
+    disk: 130
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F9_F13
+    ram: 98304
+    vcpus: 24
+    disk: 130
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F10_F11
+    ram: 32768
+    vcpus: 16
+    disk: 145
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F10_F12
+    ram: 65536
+    vcpus: 16
+    disk: 145
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F10_F13
+    ram: 98304
+    vcpus: 24
+    disk: 145
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F11_F12
+    ram: 65536
+    vcpus: 16
+    disk: 160
+    extra_specs:
+      "hw:cpu_cores": 8
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F11_F13
+    ram: 98304
+    vcpus: 24
+    disk: 160
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2 
+  
+- name: "create flavor"
+  openstack.cloud.compute_flavor:
+    name: F12_F13
+    ram: 98304
+    vcpus: 24
+    disk: 180
+    extra_specs:
+      "hw:cpu_cores": 12
+      "hw:cpu_sockets": 2  
