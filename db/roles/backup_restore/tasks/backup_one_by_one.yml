@@ -81,19 +81,6 @@
     - placement_backup 
 
 
-### backup rally db "
-- name: rally backup
-  mysql_db:  
-    state: dump
-    name: rally
-    target: "{{ path_backup }}rally.sql"
-    #login_user: root
-    #login_password: ""
-  tags:
-     -  rally_backup
- 
-
-
 ## check ansible
 
        #- name: debug
