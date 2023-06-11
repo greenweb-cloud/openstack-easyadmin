@@ -15,7 +15,7 @@ db_names:
   - nova_api
   - nova_cell0
   - placement
-  - rally
+#  - rally
   - glance
 
 setup_hosts: "openstack-ansible /opt/openstack-ansible/playbooks/setup-hosts.yml"
