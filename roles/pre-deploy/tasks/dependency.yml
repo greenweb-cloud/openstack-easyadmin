@@ -60,17 +60,9 @@
 
 
 
-- name: Update distro to the latest version
-  apt:
-    upgrade: dist
-  tags:
-    - infra
-    - compute
-    - mon
-    - osd
-    - ovs
 
-- name: Upgrade all packages to the latest version
+
+- name: Update all packages to the latest version
   apt:
     name: "*"
     state: latest
@@ -80,6 +72,18 @@
     - mon
     - osd
     - ovs
+
+- name: Upgrade distro to the latest version
+  apt:
+    upgrade: dist
+  tags:
+    - infra
+    - compute
+    - mon
+    - osd
+    - ovs
+
+
 
 
 - name: Configure /etc/modules file

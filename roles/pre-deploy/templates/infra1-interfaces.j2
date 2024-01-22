@@ -1,4 +1,4 @@
-{% set ip = ansible_eno1.ipv4.address.split('.')[-1] %}
+{% set ip = ansible_default_ipv4.address.split('.')[-1] %}
 
 
 auto lo
