@@ -11,36 +11,37 @@ A brief description of the role goes here.
 graph LR
 A[dependency.yml]
 ```
-|Task Name       |Descriptionn                               |                         |
+|Task Name       |Descriptionn                   |                             |
 |----------------|-------------------------------|-----------------------------|
-|Repo            | `'add repository apt we need`            |            |
-|Apt update      |`"Updating all things in the server"`            |            
+|Repo            | `'add repository apt we need`        |                      |
+|Apt update      |`"Updating all things in the server"`                        |            
 |Packages        |`install some package and remove some package ` |you can see in default file
-|dist upgrade    |`upgrading packages to latest version`||
-|Configure module|`add some module`|kernel modules We need that should be loaded at boot time,bonding=>network bonding , 802.14=>standard for VLANs , /etc/module|
-|Configure DNS|`adding your DNS server`|/etc/systemd/resolv.conf |
+|dist upgrade    |`upgrading packages to latest version`|                      |
+|Configure module|`add some module`                     |kernel modules We need that should be loaded at boot time,bonding=>network bonding , 802.14=>standard for VLANs , /etc/module|
+|Configure DNS|`adding your DNS server`                 |/etc/systemd/resolv.conf |
 |Configure hosts|`_node must contain entries for the local host_`| /etc/hosts|
-
-
-  ```mermaid
-graph LR
-A[ntp.yml]
-```
-|Task Name       |Descriptionn                               |                         |
-|----------------|-------------------------------|-----------------------------|
-|Set time zone            | `'Add Your cloud time zone`            |            |
-|Install Chrony  |`"a refrence implemeentaion of NTP"`            |   make sure chrony daemon is run         
-|Configure NTP         |`Network time Protocol for All servers are be at the same time` |/etc/chrony/chrony.conf
-
-
+|Clean up|`directory`| /openstack /etc/haproxy /etc/keepalived|
+|Clean up|`LXC containers`||
 
   ```mermaid
 graph LR
 A[ntp.yml]
 ```
-|Task Name       |Descriptionn                               |                         |
+|Task Name       |Descriptionn                   |                             |
 |----------------|-------------------------------|-----------------------------|
-|Packages            | `'install some package and remove some package `        |you can see in default file            |
+|Set time zone   | `'Add Your cloud time zone`   |                             |
+|Install Chrony  |`"a refrence implemeentaion of NTP"`             |   make sure chrony daemon is run         |
+|Configure NTP         |`Network time Protocol for All servers are be at the same time` |/etc/chrony/chrony.conf |
+
+
+
+  ```mermaid
+graph LR
+A[Network Manger.yml]
+```
+|Task Name       |Descriptionn                   |                             |
+|----------------|-------------------------------|-----------------------------|
+|Packages        | `'install some package and remove some package `        |you can see in default file            |
 |Configure network for nodes  |`"Configure interfaces"`            | /etc/network/interface   
 |Ceph  |`Configure network for ceph monitor node , Software defiend storage`            | /etc/network/interface        
 |Remove all Netplan And Add Configure We need      | |/etc/netplan
