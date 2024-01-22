@@ -42,3 +42,5 @@ vxlan_CIDR: "24"
 
 ceph_NET: "192.168.5"
 ceph_CIDR : "24"
+
+ntp_server: "192.168.4."

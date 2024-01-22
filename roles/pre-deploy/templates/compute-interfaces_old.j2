@@ -1,5 +1,5 @@
-# compute1 netowrk interface configuration
-{% set ip = ansible_default_ipv4.address.split('.')[-1] %}
+#compute1 netowrk interface configuration
+{% set ip = ansible_default_ipv4.address.split('.')[-1]  %}
 
 auto lo
 iface lo inet loopback

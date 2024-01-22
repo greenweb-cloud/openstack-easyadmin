@@ -1,5 +1,6 @@
 {% set ip = ansible_eno1.ipv4.address.split('.')[-1] %}
-
+ansible_default_ipv4.address.split('.')[-1] 
+{{ ansible_default_ipv4.interface }}
 
 auto lo
 iface lo inet loopback
