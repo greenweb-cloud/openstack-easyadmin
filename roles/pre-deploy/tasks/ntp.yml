@@ -7,9 +7,19 @@
 #  tags:
 #    - ntp
 
+#- name: Set timezone to Asia/Tehran
+#  timezone:
+#    name: Asia/Tehran
+#  tags:
+#    - infra
+#    - compute
+#    - mon
+#    - osd
+#    - ovs
+#    - ntp
+
 - name: Set timezone to Asia/Tehran
-  timezone:
-    name: Asia/Tehran
+  command: timedatectl set-timezone Asia/Tehran
   tags:
     - infra
     - compute
@@ -17,6 +27,7 @@
     - osd
     - ovs
     - ntp
+
 
 - name: make sure chronyd is installed
   apt:
